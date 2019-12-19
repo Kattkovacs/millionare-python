@@ -9,9 +9,6 @@ How it works / instrucitons:
 
 You have to type for every question: A / B / C / D
 If you choose option: "STOP" , you will stop playing, and get the money you earned.
-You will have 2 help panels that you can use, but only once each.
-  - You can Google for the info that you are looking for.
-  - The crowd will help you with the right answer.
  
 If you choose an incorrect answer you will instantly lose the game.
 The money that you bring home depends on your performance.
