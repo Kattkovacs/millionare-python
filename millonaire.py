@@ -63,15 +63,37 @@ def quiz():
             if answer=='h':
                 help_=input("For Audience's help, type 'a'\nFor Telephone help type 't'\nFor halving type 'h': ")
                 if help_=="a":
-                    print(f'A: {random.randint(0,100)}%')
-                    time.sleep(1)
-                    print(f'B: {random.randint(0,100)}%')
-                    time.sleep(1)
-                    print(f'C: {random.randint(0,100)}%')
-                    time.sleep(1)
-                    print(f'D: {random.randint(0,100)}%')
-                    time.sleep(1)
-                    answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
+                   for choise in [a,b,c,d]:
+                       if choise ==current_line[0]:
+                            if choise==a:
+                                a_percent=random.randint(40,89)
+                                b_percent=random.randint(0,a_percent)
+                                c_percent=random.randint(0,c_percent)
+                                d_percent=random.randint(0,d_percent)
+
+                            if choise==b:
+                                b_percent=random.randint(40,89)
+                                c_percent=random.randint(0,b_percent)
+                                d_percent=random.randint(0,c_percent)
+                                a_percent=random.randint(0,d_percent)
+                            if choise==c:
+                                c_percent=random.randint(40,96)
+                                d_percent=random.randint(0,c_percent)
+                                a_percent=random.randint(0,d_percent)
+                                b_percent=random.randint(0,a_percent)
+                            if choise==d:
+                                d_percent=random.randint(40,89)
+                                a_percent=random.randint(0,d_percent)
+                                b_percent=random.randint(0,a_percent)
+                                c_percent=random.randint(0,b_percent)
+                            print(f'A: {a_percent}%')
+                            time.sleep(1)
+                            print(f'B: {b_percent}%')
+                            time.sleep(1)
+                            print(f'C: {c_percent}%')
+                            time.sleep(1)
+                            print(f'D: {d_percent}%')
+                            answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
                 if help_=="t":
                     print("Fricska")
                 if help_=="h":
