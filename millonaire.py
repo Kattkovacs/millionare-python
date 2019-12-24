@@ -63,13 +63,13 @@ def quiz():
             if answer=='h':
                 help_=input("For Audience's help, type 'a'\nFor Telephone help type 't'\nFor halving type 'h': ")
                 if help_=="a":
-                   for choise in [a,b,c,d]:
-                       if choise ==current_line[0]:
+                    for choise in [a,b,c,d]:
+                        if choise ==current_line[0]:
                             if choise==a:
                                 a_percent=random.randint(40,89)
                                 b_percent=random.randint(0,a_percent)
-                                c_percent=random.randint(0,c_percent)
-                                d_percent=random.randint(0,d_percent)
+                                c_percent=random.randint(0,b_percent)
+                                d_percent=random.randint(0,c_percent)
 
                             if choise==b:
                                 b_percent=random.randint(40,89)
@@ -93,7 +93,7 @@ def quiz():
                             print(f'C: {c_percent}%')
                             time.sleep(1)
                             print(f'D: {d_percent}%')
-                            answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
+                    answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
                 if help_=="t":
                     phone=input("Who'd you like to call?\nfor mum, press 'm'\nfor dad press 'd'\nfor old teacher from high school press 't'\nfor Maester Yoda press 'y': ")
                     if phone=='m':
@@ -136,7 +136,7 @@ def quiz():
                         print("*background* Hi Leila I'm Yoda please help this is the question..")
                         time.sleep(2)
                         print("The Force says "+ current_line[0] +"\nNever forget, do or don't but never try!")
-                answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
+                    answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
                 if help_=="h":
                     os.system('clear')
                     time.sleep(2)
