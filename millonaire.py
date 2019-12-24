@@ -95,9 +95,81 @@ def quiz():
                             print(f'D: {d_percent}%')
                             answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
                 if help_=="t":
-                    print("Fricska")
+                    phone=input("Who'd you like to call?\nfor mum, press 'm'\nfor dad press 'd'\nfor old teacher from high school press 't'\nfor Maester Yoda press 'y': ")
+                    if phone=='m':
+                        print("Hi mummy, I'm playing the Millionaire..Here's the question.. \n"+', '.join(question_table[i]))
+                        time.sleep(2)
+                        print("Hi Honey.. I don't know the answer i'll ask your dad")
+                        time.sleep(2)
+                        print("..Dad!..Daddy!..Our son is in the Millionaire Show!! Can you believe??")
+                        time.sleep(2)
+                        print(fg.red+"Mum please my time is almost up!!"+fg.rs)
+                        time.sleep(2)
+                        print("Okay honey, it is D.. No, no wait, it is " + current_line[0])
+                    if phone=='d':
+                        print("Hi dad, I'm playing the Millionaire..Here's the question.. \n"', '.join(question_table[i]))
+                        time.sleep(2)
+                        print("Hi Son.. I don't know the answer i'll ask your grandfather")
+                        time.sleep(2)
+                        print("..Dad!..Daddy!..Your grandson is in the Millionaire Show!! Can you believe??")
+                        time.sleep(2)
+                        print(fg.red+"Dad please my time is almost up!!"+fg.rs)
+                        time.sleep(2)
+                        print("Okay Son, he says it is A.. No, no wait, it is " + current_line[0])
+                    if phone=='t':
+                        print("Great day Mr Teacher I am your former student, and I'm playing the Millionaire..Here's the question..\n"', '.join(question_table[i]))
+                        time.sleep(2)
+                        print("Welcome.. I'd never thought after so many years you'd call me!")
+                        time.sleep(2)
+                        print("I have to tell the principle..Mr!..Mr Principle!..One of your former student is in the Millionaire Show!! Can you believe??")
+                        time.sleep(2)
+                        print(fg.red+"Sir please my time is almost up!!"+fg.rs)
+                        time.sleep(2)
+                        print("Okay boy, he says it is A.. No, no wait, it is " + current_line[0])
+                    if phone=='y':
+                        print("May the force be with you, my son. How can I help u?")
+                        time.sleep(2)
+                        print("Hi Yoda, I need your force of knowledge because I'm playing the Millionaire..Here's the question..\n"', '.join(question_table[i]))
+                        time.sleep(2)
+                        print("I call the Force for help")
+                        time.sleep(2)
+                        print("*background* Hi Leila I'm Yoda please help this is the question..")
+                        time.sleep(2)
+                        print("The Force says "+ current_line[0] +"\nNever forget, do or don't but never try!")
+                answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
                 if help_=="h":
-                    print("csokiskeksz")
+                    os.system('clear')
+                    time.sleep(2)
+                    for head_lines in range(len(vago_feje_sorai)):
+                        print(''.join(vago_feje[head_lines]))
+                    print(" "+"-"*(table_line_length))
+                    width = table_line_length
+                    print(" "+', '.join(question_table[i]).center(width,'-'))
+                    possibilities=[]
+                    for shuffled_element in shuffled_line:
+                        if shuffled_element == current_line[0]:
+                            possibilities.append(shuffled_element)
+                            for index in range(1):
+                                if shuffled_element==a:
+                                    possibilities.append(random.choice([b,c,d]))
+                                elif shuffled_element==b:
+                                    possibilities.append(random.choice([a,c,d]))
+                                elif shuffled_element==c:
+                                    possibilities.append(random.choice([a,b,d]))
+                                elif shuffled_element==d:
+                                    possibilities.append(random.choice([a,c,b]))
+                    if a not in possibilities:
+                        first_choice=fg.orange + 'A: ' +" "*len(a)+ fg.rs
+                    if b not in possibilities:
+                        second_choice=fg.orange + 'B: ' +" "*len(b)+ fg.rs
+                    if c not in possibilities:
+                        third_choice=fg.orange + 'C: '+" "*len(c) + fg.rs
+                    if d not in possibilities:       
+                        fourth_choice=fg.orange + 'D: ' +" "*len(d)+ fg.rs
+                    print(" |"+ first_choice + (" "*(table_line_length-(len(shuffled_line[0])+len(shuffled_line[1])+9))) + second_choice + " |")
+                    print(" |"+ third_choice + (" "*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+9)))+fourth_choice + " |")
+                    print(" "+"-"*table_line_length)          
+                    answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
             if answer == 'a':
                 answer = a
             if answer == 'b':
