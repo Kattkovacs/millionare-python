@@ -66,26 +66,28 @@ def quiz():
                     for choise in [a,b,c,d]:
                         if choise ==current_line[0]:
                             if choise==a:
-                                a_percent=random.randint(40,89)
-                                b_percent=random.randint(0,a_percent)
-                                c_percent=random.randint(0,b_percent)
-                                d_percent=random.randint(0,c_percent)
-
+                                a_percent=random.randrange(40,89)
+                                b_percent=random.randrange(0,(100-a_percent))
+                                c_percent=random.randrange(0,(100-a_percent-b_percent))
+                                d_percent=100-(a_percent+b_percent+c_percent)
                             if choise==b:
-                                b_percent=random.randint(40,89)
-                                c_percent=random.randint(0,b_percent)
-                                d_percent=random.randint(0,c_percent)
-                                a_percent=random.randint(0,d_percent)
+                                b_percent=random.randrange(40,89)
+                                a_percent=random.randrange(0,(100-b_percent))
+                                c_percent=random.randrange(0,(100-b_percent-a_percent))
+                                d_percent=100-(a_percent+b_percent+c_percent)
                             if choise==c:
-                                c_percent=random.randint(40,96)
-                                d_percent=random.randint(0,c_percent)
-                                a_percent=random.randint(0,d_percent)
-                                b_percent=random.randint(0,a_percent)
+                                c_percent=random.randrange(40,89)
+                                b_percent=random.randrange(0,(100-c_percent))
+                                a_percent=random.randrange(0,(100-c_percent-b_percent))
+                                d_percent=100-(a_percent+b_percent+c_percent)
                             if choise==d:
-                                d_percent=random.randint(40,89)
-                                a_percent=random.randint(0,d_percent)
-                                b_percent=random.randint(0,a_percent)
-                                c_percent=random.randint(0,b_percent)
+                                d_percent=random.randrange(40,89)
+                                b_percent=random.randrange(0,(100-d_percent))
+                                c_percent=random.randrange(0,(100-d_percent-b_percent))
+                                a_percent=100-(d_percent+b_percent+c_percent)
+                            if a_percent+b_percent+c_percent+d_percent != 100:
+                                print(" AUDIENCE HELP IS BROKEN!!!")
+                                break
                             print(f'A: {a_percent}%')
                             time.sleep(1)
                             print(f'B: {b_percent}%')
