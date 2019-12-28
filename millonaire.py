@@ -172,6 +172,7 @@ def quiz():
                     print(" |"+ third_choice + (" "*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+9)))+fourth_choice + " |")
                     print(" "+"-"*table_line_length)          
                     answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
+            answer = input("Are you sure?")
             if answer == 'a':
                 answer = a
             if answer == 'b':
