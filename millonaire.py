@@ -2,10 +2,11 @@ import random
 import copy
 import sys
 import os
-from sty import Style, RgbFg, fg, rs
+from sty import Style, RgbFg, fg, rs, bg
 import time
 from playsound import playsound
 import pygame
+from PIL import Image
 
 
 
@@ -20,6 +21,9 @@ def game_start():
     time.sleep(2)
     print(pygame.mixer.Sound("loim_intro.wav").get_volume())
     print("This is the game of games..\nIn the arena..\nMr Steven Vágó is awating You!\n"+fg.purple+"Become the next Millionaire!\n"+fg.rs)
+    myImage = Image.open("vago_intro.jpg")
+    myImage.show()
+    time.sleep(5)
 
 def play_sound(filename):
     pygame.mixer.music.load(filename)
@@ -43,12 +47,12 @@ def open_drawing(filename, mode):
     return list_of_file
 
 def quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i):
-    print(" "+"-"*(table_line_length))
+    print(bg.black+" "+"-"*(table_line_length))
     width = table_line_length
     print(" "+', '.join(question_lines[i]).center(width,'-'))
-    print(" |"+ first_choice + (" "*(table_line_length-(len(shuffled_line[0])+len(shuffled_line[1])+9))) + second_choice + " |")
-    print(" |"+ third_choice + (" "*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+9)))+fourth_choice + " |")
-    print(" "+"-"*table_line_length)
+    print(" |"+ first_choice + (" "*(table_line_length-(len(shuffled_line[0])+len(shuffled_line[1])+13))) + second_choice + " |")
+    print(" |"+ third_choice + (" "*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+13)))+fourth_choice + " |")
+    print(" "+"-"*table_line_length+bg.rs)
 
 def help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_line_length,shuffled_line,first_choice,second_choice,third_choice,fourth_choice):
     help_=input("For Audience's help, type 'a'\nFor Telephone help type 't'\nFor halving type 'h': ")
@@ -194,9 +198,6 @@ def halving(vago_feje_sorai,table_line_length,question_lines,i,shuffled_line,fir
     vago_feje_sorai = open_drawing('vago.txt', 'r')
     for head_lines in vago_feje_sorai:
         print(''.join(head_lines).rstrip())
-    print(" "+"-"*(table_line_length))
-    width = table_line_length
-    print(" "+', '.join(question_lines[i]).center(width,'-'))
     possibilities=[]
     for shuffled_element in shuffled_line:
         if shuffled_element == current_line[0]:
@@ -211,26 +212,76 @@ def halving(vago_feje_sorai,table_line_length,question_lines,i,shuffled_line,fir
                 elif shuffled_element==d:
                     possibilities.append(random.choice([a,c,b]))
     if a not in possibilities:
-        first_choice=fg.orange + 'A: ' +" "*len(a)+ fg.rs
+        first_choice=fg.orange + '◆ A: ' +" "*len(a)+ fg.rs
     if b not in possibilities:
-        second_choice=fg.orange + 'B: ' +" "*len(b)+ fg.rs
+        second_choice=fg.orange + '◆ B: ' +" "*len(b)+ fg.rs
     if c not in possibilities:
-        third_choice=fg.orange + 'C: '+" "*len(c) + fg.rs
+        third_choice=fg.orange + '◆ C: '+" "*len(c) + fg.rs
     if d not in possibilities:       
-        fourth_choice=fg.orange + 'D: ' +" "*len(d)+ fg.rs
-    print(" |"+ first_choice + (" "*(table_line_length-(len(shuffled_line[0])+len(shuffled_line[1])+9))) + second_choice + " |")
-    print(" |"+ third_choice + (" "*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+9)))+fourth_choice + " |")
-    print(" "+"-"*table_line_length)          
+        fourth_choice=fg.orange + '◆ D: ' +" "*len(d)+ fg.rs
+
+
+    quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)      
     
-def check_answer(answer,current_line,a,b,c,d):
+def marking(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i):
+    bg.white = bg(255, 255, 255)
     if answer.lower()=='a':
         answer = a
+        first_choice=bg.white + first_choice +bg.black
     if answer.lower()=='b':
         answer = b
+        second_choice=bg.white + second_choice +bg.black
     if answer.lower()== 'c':
         answer = c
+        third_choice=bg.white + third_choice +bg.black
     if answer.lower()== 'd':
         answer = d
+        fourth_choice=bg.white + fourth_choice +bg.black
+    os.system('clear')
+    quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)
+    play_sound("marked.wav",)
+    time.sleep(4)
+    if answer==a:
+        if a == current_line[0]:
+            first_choice=bg.green + fg.orange + '◆ A: ' + fg.rs + ''.join(a) +bg.black
+        else:
+            first_choice=bg.red + fg.orange + '◆ A: ' + fg.rs + ''.join(a) +bg.black
+    if answer==b:
+        if b == current_line[0]:
+            second_choice=bg.green + fg.orange + '◆ B: ' + fg.rs + ''.join(b) +bg.black
+        else: 
+            second_choice=bg.red + fg.orange + '◆ B: ' + fg.rs + ''.join(b) +bg.black
+    if answer==c:
+        if c == current_line[0]:
+            third_choice=bg.green + fg.orange + '◆ C: ' + fg.rs + ''.join(c) +bg.black
+        else:
+            third_choice=bg.red + fg.orange + '◆ C: ' + fg.rs + ''.join(c) +bg.black
+    if answer==d:
+        if d == current_line[0]:
+            fourth_choice=bg.green + fg.orange + '◆ D: ' + fg.rs + ''.join(d) +bg.black
+        else:
+            fourth_choice=bg.red + fg.orange + '◆ D: ' + fg.rs + ''.join(d) +bg.black
+    if answer != current_line[0]:
+        for pos in [a,b,c,d]:
+            if pos==current_line[0]:
+                if pos==a:
+                    first_choice=bg.green + first_choice + bg.black
+                if pos==b:
+                    second_choice=bg.green + first_choice + bg.black
+                if pos==c:
+                    third_choice=bg.green + third_choice + bg.black
+                if pos==d:
+                    fourth_choice=bg.green + fourth_choice + bg.black
+    time.sleep(1)
+    os.system('clear')
+    quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)
+    check_answer(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i)
+    time.sleep(2)
+    
+
+
+
+def check_answer(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i):
     if answer == current_line[0]:
         play_sound("jo valasz.wav")
         fg.green = Style(RgbFg(0, 255, 0))
@@ -250,6 +301,7 @@ def quiz():
     list_of_answers=open_file('answers.txt', "r")
     copy_of_list_of_answers = copy.deepcopy(list_of_answers)
     for i in range(len(question_lines)):
+        os.system('clear')
         current_line = list_of_answers[i]
         shuffled_line = copy_of_list_of_answers[i]
         random.shuffle(shuffled_line)
@@ -258,10 +310,10 @@ def quiz():
         c = shuffled_line[2]
         d = shuffled_line[3]
         fg.orange = Style(RgbFg(255, 150, 50))
-        first_choice =fg.orange + 'A: ' + fg.rs + ''.join(shuffled_line[0])
-        second_choice =fg.orange + 'B: ' + fg.rs + ''.join(shuffled_line[1])
-        third_choice =fg.orange + 'C: ' + fg.rs + ''.join(shuffled_line[2])
-        fourth_choice = fg.orange + 'D: ' + fg.rs + ''.join(shuffled_line[3])
+        first_choice =fg.orange + '◆ A: ' + fg.rs + ''.join(shuffled_line[0])
+        second_choice =fg.orange + '◆ B: ' + fg.rs + ''.join(shuffled_line[1])
+        third_choice =fg.orange + '◆ C: ' + fg.rs + ''.join(shuffled_line[2])
+        fourth_choice = fg.orange + '◆ D: ' + fg.rs + ''.join(shuffled_line[3])
         max_question_length=0
         answer_lengths=[]
         for question in question_lines:
@@ -285,7 +337,13 @@ def quiz():
             vago_feje_sorai = open_drawing('vago.txt', 'r')
             help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_line_length,shuffled_line,first_choice,second_choice,third_choice,fourth_choice)
         answer = input("Are you sure?")
-        check_answer(answer,current_line,a,b,c,d)
+        marking(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i)
+
+        prices=["5.000 Ft ","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000Ft","1.500.000Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","40.000.000 Ft"]
+        for round_ in range(len(prices)+1):
+            if counter==round_:
+                print(prices[counter])
+                time.sleep(2)
         if counter == 5:
             print(fg.orange + "You have guaranteed 100.000 Ft" + fg.rs)
         if counter == 10:
