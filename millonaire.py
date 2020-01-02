@@ -6,29 +6,23 @@ from sty import Style, RgbFg, fg, rs, bg
 import time
 from playsound import playsound
 import pygame
-from PIL import Image
-
+""" from PIL import Image
+ """
 
 
 def game_start():
     fg.purple = Style(RgbFg(148, 0, 211))
     pygame.mixer.init()
-    play_sound("loim_intro.wav")
     os.system('clear')
-    print(pygame.mixer.Sound("loim_intro.wav").get_volume())
+    play_sound("loim_intro.wav",0)
     time.sleep(2)
-    sound=pygame.mixer.Sound("loim_intro.wav")
-    time.sleep(2)
-    print(pygame.mixer.Sound("loim_intro.wav").get_volume())
     print("This is the game of games..\nIn the arena..\nMr Steven Vágó is awating You!\n"+fg.purple+"Become the next Millionaire!\n"+fg.rs)
-    myImage = Image.open("vago_intro.jpg")
-    myImage.show()
     time.sleep(5)
 
-def play_sound(filename):
+def play_sound(filename,starting_time):
     pygame.mixer.music.load(filename)
     pygame.mixer.music.set_volume(0.07)
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(0,starting_time)
 
 def open_file(filename, mode):
     with open(filename, mode) as file:
@@ -45,6 +39,10 @@ def open_drawing(filename, mode):
             line = line.split(',')
             list_of_file.append(line)
     return list_of_file
+""" 
+def price_table(counter,prices,vago_feje_sorai,sor):
+    for kor in range(len(prices)):
+        print(prices[sor]) """
 
 def quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i):
     print(bg.black+" "+"-"*(table_line_length))
@@ -66,7 +64,7 @@ def help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_lin
 
 
 def audience_help(a,b,c,d,current_line,question_lines):
-    play_sound("kozonseg.wav")
+    play_sound("kozonseg.mp3",0)
     for choise in [a,b,c,d]:
         if choise ==current_line[0]:
             if choise==a:
@@ -99,12 +97,12 @@ def audience_help(a,b,c,d,current_line,question_lines):
             print(f'C: {c_percent}%')
             time.sleep(1)
             print(f'D: {d_percent}%')
-            pygame.mixer.fadeout(2)    
 def telephone_help(question_lines,current_line,i):
     phone=input("Who'd you like to call?\nfor mum, press 'm'\nfor dad press 'd'\nfor old teacher from high school press 't'\nfor Maester Yoda press 'y': ")
     if phone.lower()=='m':
-        play_sound("telhiv.wav")
-        play_sound("telefon.wav")
+        play_sound("telhiv.mp3",0)
+        time.sleep(2)
+        play_sound("telefon.mp3",0)
         then = time.time()
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         print("Hi mummy, I'm playing the Millionaire..Here's the question.. \n"+', '.join(question_lines[i]))
@@ -122,11 +120,13 @@ def telephone_help(question_lines,current_line,i):
         print("Okay honey, it is D.. No, no wait, it is " + current_line[0])
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         now = time.time()
-        pygame.mixer.fadeout(2)
+        play_sound('telefon.mp3',54.0)
+        time.sleep(1)
         print("Call Duration: ", int(now-then), " seconds\ 30 seconds")
     if phone.lower()=='d':
-        play_sound("telhiv.wav")
-        play_sound("telefon.wav")
+        play_sound("telhiv.mp3",0)
+        time.sleep(2)
+        play_sound("telefon.mp3",0)
         then = time.time()
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         print("Hi dad, I'm playing the Millionaire..Here's the question.. \n"', '.join(question_lines[i]))
@@ -144,11 +144,14 @@ def telephone_help(question_lines,current_line,i):
         print("Okay Son, he says it is A.. No, no wait, it is " + current_line[0])
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         now = time.time()
-        pygame.mixer.fadeout(2)
+        pygame.mixer.music.stop()
+        play_sound('telefon.mp3',54.0)
+        time.sleep(1)
         print("Call Duration: ", int(now-then), " seconds\ 30 seconds")
     if phone.lower()=='t':
-        play_sound("telhiv.wav")
-        play_sound("telefon.wav")
+        play_sound("telhiv.mp3",0)
+        time.sleep(2)
+        play_sound("telefon.mp3",0)
         then = time.time()
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         print("Great day Mr Teacher I am your former student, and I'm playing the Millionaire..Here's the question..\n"', '.join(question_lines[i]))
@@ -166,11 +169,14 @@ def telephone_help(question_lines,current_line,i):
         print("Okay boy, he says it is A.. No, no wait, it is " + current_line[0])
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         now = time.time()
-        pygame.mixer.fadeout(2)
+        pygame.mixer.music.stop()
+        play_sound('telefon.mp3',54.0)
+        time.sleep(1)       
         print("Call Duration: ", int(now-then), " seconds\ 30 seconds")
     if phone.lower()=='y':
-        play_sound("telhiv.wav")
-        play_sound("telefon.wav")
+        play_sound("telhiv.mp3",0)
+        time.sleep(2)
+        play_sound("telefon.mp3",0)
         then = time.time()
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         #Time after it finished
@@ -189,12 +195,14 @@ def telephone_help(question_lines,current_line,i):
         print("The Force says "+ current_line[0] +"\nNever forget, do or don't but never try!")
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         now = time.time()
-        pygame.mixer.fadeout(2)
+        pygame.mixer.music.stop() 
+        play_sound('telefon.mp3',54.0)
+        time.sleep(1)
         print("Call Duration: ", int(now-then), " seconds\ 30 seconds max.")
 def halving(vago_feje_sorai,table_line_length,question_lines,i,shuffled_line,first_choice,second_choice,third_choice,fourth_choice,current_line,a,b,c,d):
     os.system('clear')
     time.sleep(2)
-    play_sound("felezo.wav")
+    play_sound("felezo.mp3",0)
     vago_feje_sorai = open_drawing('vago.txt', 'r')
     for head_lines in vago_feje_sorai:
         print(''.join(head_lines).rstrip())
@@ -239,7 +247,7 @@ def marking(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,
         fourth_choice=bg.white + fourth_choice +bg.black
     os.system('clear')
     quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)
-    play_sound("marked.wav",)
+    play_sound("marked.wav",0)
     time.sleep(4)
     if answer==a:
         if a == current_line[0]:
@@ -267,7 +275,7 @@ def marking(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,
                 if pos==a:
                     first_choice=bg.green + first_choice + bg.black
                 if pos==b:
-                    second_choice=bg.green + first_choice + bg.black
+                    second_choice=bg.green + second_choice + bg.black
                 if pos==c:
                     third_choice=bg.green + third_choice + bg.black
                 if pos==d:
@@ -276,20 +284,20 @@ def marking(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,
     os.system('clear')
     quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)
     check_answer(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i)
-    time.sleep(2)
+
     
 
 
 
 def check_answer(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i):
     if answer == current_line[0]:
-        play_sound("jo valasz.wav")
+        play_sound("jo valasz.mp3",0)
         fg.green = Style(RgbFg(0, 255, 0))
         print(fg.green + "Well done!" + fg.rs)
         time.sleep(2)
         os.system('clear')
     else:
-        play_sound("rossz valasz.wav")
+        play_sound("rossz valasz.mp3",0)
         time.sleep(2)
         fg.red = Style(RgbFg(255, 0, 0))
         print(fg.red+answer+"\nBetter luck next time!"+fg.rs)
@@ -297,6 +305,7 @@ def check_answer(answer,current_line,a,b,c,d,first_choice,second_choice,third_ch
 
 def quiz():
     counter = 0
+    prices=["5.000 Ft ","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000Ft","1.500.000Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","40.000.000 Ft"]
     question_lines=open_file('questions.txt', "r")
     list_of_answers=open_file('answers.txt', "r")
     copy_of_list_of_answers = copy.deepcopy(list_of_answers)
@@ -330,6 +339,12 @@ def quiz():
         vago_feje_sorai = open_drawing('vago.txt', 'r')
         for head_lines in vago_feje_sorai:
             print(''.join(head_lines).rstrip())
+        print((table_line_length*" ")+bg.black+len(prices[-1])*"-"+bg.rs)
+        for eleme in range(len(prices)):
+            if eleme==counter:
+                prices[eleme]=fg.orange+prices[eleme]+fg.rs+(len(prices[-1])-len(prices[eleme]))*" "
+            print((table_line_length*" ")+bg.black+"|"+prices[eleme]+(len(prices[-1])-len(prices[eleme]))*" "+"|"+bg.rs)
+        print(bg.black+(table_line_length*" ")+len(prices[-1])*"-"+bg.rs)
         quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)        
         counter += 1
         answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
@@ -338,12 +353,10 @@ def quiz():
             help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_line_length,shuffled_line,first_choice,second_choice,third_choice,fourth_choice)
         answer = input("Are you sure?")
         marking(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i)
-
-        prices=["5.000 Ft ","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000Ft","1.500.000Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","40.000.000 Ft"]
         for round_ in range(len(prices)+1):
             if counter==round_:
-                print(prices[counter])
-                time.sleep(2)
+                print(fg.orange +prices[counter]+fg.rs)
+                time.sleep(1)
         if counter == 5:
             print(fg.orange + "You have guaranteed 100.000 Ft" + fg.rs)
         if counter == 10:
