@@ -16,9 +16,9 @@ def game_start():
     os.system('clear')
     play_sound("loim_intro.wav",0)
     time.sleep(2)
-    print("This is the game of games..\nIn the arena..\nMr Steven Vágó is awating You!\n"+fg.purple+"Become the next Millionaire!\n"+fg.rs)
+    print("This is the game of games..\nIn the arena..\nMr Steven Vágó is awaiting You!\n"+fg.purple+"Become the next Millionaire!\n"+fg.rs)
     time.sleep(5)
-
+    
 def play_sound(filename,starting_time):
     pygame.mixer.music.load(filename)
     pygame.mixer.music.set_volume(0.07)
@@ -45,22 +45,37 @@ def price_table(counter,prices,vago_feje_sorai,sor):
         print(prices[sor]) """
 
 def quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i):
-    print(bg.black+" "+"-"*(table_line_length))
+    print(bg.black+" "+"-"*(table_line_length)+bg.rs)
     width = table_line_length
-    print(" "+', '.join(question_lines[i]).center(width,'-'))
-    print(" |"+ first_choice + (" "*(table_line_length-(len(shuffled_line[0])+len(shuffled_line[1])+13))) + second_choice + " |")
-    print(" |"+ third_choice + (" "*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+13)))+fourth_choice + " |")
-    print(" "+"-"*table_line_length+bg.rs)
+    print(bg.black+" "+', '.join(question_lines[i]).center(width,'-')+bg.rs)
+    print(bg.black+" |"+ first_choice + (" "*(table_line_length-(len(shuffled_line[0])+len(shuffled_line[1])+13))) + second_choice + " |"+bg.rs)
+    print(bg.black+" |"+ third_choice + (" "*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+13)))+fourth_choice + " |"+bg.rs)
+    print(bg.black+" "+"-"*table_line_length+bg.rs)
 
-def help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_line_length,shuffled_line,first_choice,second_choice,third_choice,fourth_choice):
-    help_=input("For Audience's help, type 'a'\nFor Telephone help type 't'\nFor halving type 'h': ")
+def help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_line_length,shuffled_line,first_choice,second_choice,third_choice,fourth_choice,Audience,Telephone,Halving):
+    help_=input("For Audience's help, type 'a'\nFor Telephone help type 't'\nFor halving type 'h': ")        
     if help_.lower()=="a":
-        audience_help(a,b,c,d,current_line,question_lines)
+        if Audience==False:
+            print("You have already used the audience help!")
+        else:    
+            audience_help(a,b,c,d,current_line,question_lines)
+            Audience=False
     if help_.lower()=="t":
-        telephone_help(question_lines,current_line,i)
+        if Telephone==False:
+            print("You have already used the telephone help!")
+        else:
+            telephone_help(question_lines,current_line,i)
+            Telephone=False
     if help_.lower()=="h":
-        halving(vago_feje_sorai,table_line_length,question_lines,i,shuffled_line,first_choice,second_choice,third_choice,fourth_choice,current_line,a,b,c,d)
+        if Halving==False:
+            print("You have already used the halving help!")
+        else:
+            halving(vago_feje_sorai,table_line_length,question_lines,i,shuffled_line,first_choice,second_choice,third_choice,fourth_choice,current_line,a,b,c,d)
+            Halving=False
+
     answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
+    return Audience, Telephone, Halving
+    
 
 
 def audience_help(a,b,c,d,current_line,question_lines):
@@ -122,7 +137,7 @@ def telephone_help(question_lines,current_line,i):
         now = time.time()
         play_sound('telefon.mp3',54.0)
         time.sleep(1)
-        print("Call Duration: ", int(now-then), " seconds\ 30 seconds")
+        print("Call Duration: ", int(now-then), " seconds\ 30 a")
     if phone.lower()=='d':
         play_sound("telhiv.mp3",0)
         time.sleep(2)
@@ -229,7 +244,8 @@ def halving(vago_feje_sorai,table_line_length,question_lines,i,shuffled_line,fir
         fourth_choice=fg.orange + '◆ D: ' +" "*len(d)+ fg.rs
 
 
-    quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)      
+    quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)
+         
     
 def marking(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i):
     bg.white = bg(255, 255, 255)
@@ -304,8 +320,12 @@ def check_answer(answer,current_line,a,b,c,d,first_choice,second_choice,third_ch
         sys.exit(0)
 
 def quiz():
+    Help_available=[]
+    Audience=True
+    Telephone=True
+    Halving=True
     counter = 0
-    prices=["5.000 Ft ","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000Ft","1.500.000Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","40.000.000 Ft"]
+    prices=["5.000 Ft ","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000Ft","1.500.000Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","20.000.000 Ft","40.000.000 Ft"]
     question_lines=open_file('questions.txt', "r")
     list_of_answers=open_file('answers.txt', "r")
     copy_of_list_of_answers = copy.deepcopy(list_of_answers)
@@ -337,20 +357,103 @@ def quiz():
         else: 
             table_line_length=max_question_length
         vago_feje_sorai = open_drawing('vago.txt', 'r')
-        for head_lines in vago_feje_sorai:
-            print(''.join(head_lines).rstrip())
-        print((table_line_length*" ")+bg.black+len(prices[-1])*"-"+bg.rs)
-        for eleme in range(len(prices)):
-            if eleme==counter:
-                prices[eleme]=fg.orange+prices[eleme]+fg.rs+(len(prices[-1])-len(prices[eleme]))*" "
-            print((table_line_length*" ")+bg.black+"|"+prices[eleme]+(len(prices[-1])-len(prices[eleme]))*" "+"|"+bg.rs)
-        print(bg.black+(table_line_length*" ")+len(prices[-1])*"-"+bg.rs)
+       
+        Aud="👥 "
+        Tel=bg.black+"📞 "
+        Halv="50:50"
+        for i in Help_available:
+            if i == False:
+                if i==Help_available[0]:
+                    Aud=bg.red+"👥 "+bg.rs
+                if i==Help_available[1]:
+                    Tel=bg.red+"📞 "+bg.rs
+                if i==Help_available[2]:
+                    Halv=bg.red+"50:50"+bg.rs
+        n=0
+        for head_lines in range(len(prices)):
+            first_length=len(''.join(vago_feje_sorai[head_lines]))
+            """ print(len(vago_feje_sorai[1][0]))
+            print(table_line_length)
+            print(first_length)
+            print(table_line_length-first_length) """
+            spaces=12
+            szám=len(vago_feje_sorai[head_lines][0].strip())
+            if szám>10:
+                    if szám ==11:
+                       spaces=10
+                    if szám ==12:
+                       spaces=16
+                    if szám ==13:
+                       spaces=15
+                    if szám ==14:
+                       spaces=10
+                    if szám ==15:
+                       spaces=10
+                    if szám==16:
+                        spaces=8
+                    if szám==17:
+                        spaces=8
+                    if szám==18:
+                        spaces=8
+                    if szám==19:
+                        spaces=6
+                    if szám==20:
+                        spaces=8
+                    if szám==21:
+                        spaces=5
+                    if szám==22:
+                        spaces=5
+                    if szám==23:
+                        spaces=5
+                    if szám==24:
+                        spaces=4
+                    if szám==25:
+                        spaces=3
+                    if szám==26:
+                        spaces=3
+                    if szám==27:
+                        spaces=5
+                    if szám==28:
+                        spaces=3
+                    if szám==29:
+                        spaces=5  
+                    if szám==30:
+                        spaces=3
+                    if szám==31:
+                        spaces=3
+                    if szám==32:
+                        spaces=3
+
+
+            if head_lines==0:
+                prices[0]="5.000 Ft" 
+            if head_lines==4:
+                prices[4]=bg.black+fg.white+prices[4]+"   "+fg.rs+bg.rs
+            if head_lines==9:
+                prices[9]=bg.black+fg.white+prices[9]+fg.rs+"  "+bg.rs
+            if head_lines==14:
+                prices[14]=fg.white+prices[14]+fg.rs 
+            if head_lines==counter:
+                if head_lines==4 or 9 or 14:
+                    prices[head_lines]=fg.white+fg.black+prices[head_lines]+bg.rs+fg.rs+(len(prices[-1])-len(prices[head_lines]))*" "
+                else:
+                    prices[head_lines]=bg.white+fg.black+prices[head_lines]+bg.rs+fg.rs+(len(prices[-1])-len(prices[head_lines]))*" "
+
+            print(''.join(vago_feje_sorai[head_lines]).rstrip()+" ".rstrip()*spaces+" "*spaces+fg.orange+prices[head_lines].rstrip()+fg.rs+(len(prices[-1])-len(prices[head_lines]))*" ".rstrip())
+            #print(''.join(vago_feje_sorai[head_lines]).strip('\n')+7*" "+prices[head_lines].strip('\n'))
+            
+        for art in range(15,20):
+            print(''.join(vago_feje_sorai[art]).rstrip())
         quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)        
         counter += 1
         answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
         if answer.lower()=='h':
             vago_feje_sorai = open_drawing('vago.txt', 'r')
-            help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_line_length,shuffled_line,first_choice,second_choice,third_choice,fourth_choice)
+            #help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_line_length,shuffled_line,first_choice,second_choice,third_choice,fourth_choice,Audience,Telephone,Halving)
+            Help_available=help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_line_length,shuffled_line,first_choice,second_choice,third_choice,fourth_choice,Audience,Telephone,Halving)
+            Audience=Help_available[0]
+            Telephone=Help_available[1]
+            Halving=Help_available[2]
         answer = input("Are you sure?")
         marking(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i)
         for round_ in range(len(prices)+1):
