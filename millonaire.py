@@ -17,8 +17,31 @@ def game_start():
     play_sound("loim_intro.wav",0)
     time.sleep(2)
     print("This is the game of games..\nIn the arena..\nMr Steven Vágó is awaiting You!\n"+fg.purple+"Become the next Millionaire!\n"+fg.rs)
+    milliomos_kép()
     time.sleep(5)
-    
+
+def milliomos_kép():
+    width, height = 22, 22
+    a, b = 10, 10
+    r = 10
+    EPSILON = 4.4
+    bg.purple = bg(148, 0, 211)
+
+    map_= [[' ' for x in range(width)]for y in range(height)]
+
+    for y in range(height):
+        for x in range(width):
+            if abs((x-a)**2 + (y-b)**2 - r**2) < EPSILON**2:
+                map_[y][x] = bg.purple+" "+bg.rs                    
+    for line in range(len(map_)):
+        if line==2:
+            for i in range(5,15):
+                map_[line][i]==""
+            map_[line].insert(5,"Who wants to be a")
+            
+        print("      " + ' '.join(map_[line]))
+        
+
 def play_sound(filename,starting_time):
     pygame.mixer.music.load(filename)
     pygame.mixer.music.set_volume(0.07)
