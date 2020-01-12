@@ -10,39 +10,17 @@ import pygame
  """
 
 
-def game_start():
+""" def game_start():
     fg.purple = Style(RgbFg(148, 0, 211))
     pygame.mixer.init()
     os.system('clear')
     play_sound("loim_intro.wav",0)
     time.sleep(2)
     print("This is the game of games..\nIn the arena..\nMr Steven Vágó is awaiting You!\n"+fg.purple+"Become the next Millionaire!\n"+fg.rs)
-    milliomos_kép()
-    time.sleep(5)
-
-def milliomos_kép():
-    width, height = 22, 22
-    a, b = 10, 10
-    r = 10
-    EPSILON = 4.4
-    bg.purple = bg(148, 0, 211)
-
-    map_= [[' ' for x in range(width)]for y in range(height)]
-
-    for y in range(height):
-        for x in range(width):
-            if abs((x-a)**2 + (y-b)**2 - r**2) < EPSILON**2:
-                map_[y][x] = bg.purple+" "+bg.rs                    
-    for line in range(len(map_)):
-        if line==2:
-            for i in range(5,15):
-                map_[line][i]==""
-            map_[line].insert(5,"Who wants to be a")
-            
-        print("      " + ' '.join(map_[line]))
-        
-
+    time.sleep(5) """
+    
 def play_sound(filename,starting_time):
+    pygame.mixer.init()
     pygame.mixer.music.load(filename)
     pygame.mixer.music.set_volume(0.07)
     pygame.mixer.music.play(0,starting_time)
@@ -81,7 +59,7 @@ def help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_lin
         if Audience==False:
             print("You have already used the audience help!")
         else:    
-            audience_help(a,b,c,d,current_line,question_lines)
+            audience_help(a,b,c,d,current_line,question_lines,table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,i)
             Audience=False
     if help_.lower()=="t":
         if Telephone==False:
@@ -101,7 +79,7 @@ def help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_lin
     
 
 
-def audience_help(a,b,c,d,current_line,question_lines):
+def audience_help(a,b,c,d,current_line,question_lines,table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,i):
     play_sound("kozonseg.mp3",0)
     for choise in [a,b,c,d]:
         if choise ==current_line[0]:
@@ -128,13 +106,53 @@ def audience_help(a,b,c,d,current_line,question_lines):
             if a_percent+b_percent+c_percent+d_percent != 100:
                 print(" AUDIENCE HELP IS BROKEN!!!")
                 break
-            print(f'A: {a_percent}%')
+            os.system('clear')
+            for choise_ in [a,b,c,d]:
+                if choise ==current_line[0]:
+                    if choise_==a:
+                        fake_a_percent=random.randrange(40,89)
+                        fake_b_percent=random.randrange(0,(100-fake_a_percent))
+                        fake_c_percent=random.randrange(0,(100-fake_a_percent-fake_b_percent))
+                        fake_d_percent=100-(fake_a_percent+fake_b_percent+fake_c_percent)
+                    if choise_==b:
+                        fake_b_percent=random.randrange(40,89)
+                        fake_a_percent=random.randrange(0,(100-fake_b_percent))
+                        fake_c_percent=random.randrange(0,(100-fake_b_percent-fake_a_percent))
+                        fake_d_percent=100-(fake_a_percent+fake_b_percent+fake_c_percent)
+                    if choise_==c:
+                        fake_c_percent=random.randrange(40,89)
+                        fake_b_percent=random.randrange(0,(100-fake_c_percent))
+                        fake_a_percent=random.randrange(0,(100-fake_c_percent-fake_b_percent))
+                        fake_d_percent=100-(fake_a_percent+fake_b_percent+fake_c_percent)
+                    if choise_==d:
+                        fake_d_percent=random.randrange(40,89)
+                        fake_b_percent=random.randrange(0,(100-fake_d_percent))
+                        fake_c_percent=random.randrange(0,(100-fake_d_percent-fake_b_percent))
+                        fake_a_percent=100-(fake_d_percent+fake_b_percent+fake_c_percent)
+                    if fake_a_percent+fake_b_percent+fake_c_percent+fake_d_percent != 100:
+                        print("Sheibe")
+                print("A:"+bg.blue+fake_a_percent*" "+" "+str(fake_a_percent)+"%"+"\n"+bg.rs+"B:"+bg.blue+fake_b_percent*" "+" "+str(fake_b_percent)+"%"+"\n"+bg.rs+"C:"+bg.blue+fake_c_percent*" "+" "+str(fake_c_percent)+"%"+"\n"+bg.rs+"D:"+bg.blue+fake_d_percent*" "+" "+str(fake_d_percent)+"%"+"\n"+bg.rs)
+                time.sleep(1)
+                os.system('clear')
+                sys.stdout.write("\033[F")
+            elems=[a_percent,b_percent,c_percent,d_percent]
+            max_element=max(elems[0],elems[1],elems[2],elems[3])
+            a__=(f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  A: {bg.rs+bg.blue+a_percent*" "+bg.black+fg.rs+str(a_percent)}% ')
+            b__=(f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  B: {bg.rs+bg.blue+b_percent*" "+bg.black+fg.rs+str(b_percent)}% ')
+            c__=(f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  C: {bg.rs+bg.blue+c_percent*" "+bg.black+fg.rs+str(c_percent)}% ')
+            d__=(f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  D: {bg.rs+bg.blue+d_percent*" "+bg.black+fg.rs+str(d_percent)}% ')
+            print((table_line_length+1)*" "+bg.black+(max_element+10)*"-"+bg.rs)
+            print(a__+(max_element-len(a__))*" "+"|"+bg.rs)
             time.sleep(1)
-            print(f'B: {b_percent}%')
+            print(b__+(max_element-len(b__))*" "+"|"+bg.rs)
             time.sleep(1)
-            print(f'C: {c_percent}%')
+            print(c__+(max_element-len(c__))*" "+"|"+bg.rs)
             time.sleep(1)
-            print(f'D: {d_percent}%')
+            print(d__+(max_element-len(d__))*" "+"|"+bg.rs)
+            print((table_line_length+1)*" "+bg.black+(max_element+10)*"-"+bg.rs)
+
+            quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)
+
 def telephone_help(question_lines,current_line,i):
     phone=input("Who'd you like to call?\nfor mum, press 'm'\nfor dad press 'd'\nfor old teacher from high school press 't'\nfor Maester Yoda press 'y': ")
     if phone.lower()=='m':
@@ -348,7 +366,10 @@ def quiz():
     Telephone=True
     Halving=True
     counter = 0
-    prices=["5.000 Ft ","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000Ft","1.500.000Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","20.000.000 Ft","40.000.000 Ft"]
+    prices=["5.000 Ft","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000 Ft","1.500.000 Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","20.000.000 Ft","40.000.000 Ft"]
+    prices2=["5.000 Ft","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000 Ft","1.500.000 Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","20.000.000 Ft","40.000.000 Ft"]
+    prices4=['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
+    prices3=['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
     question_lines=open_file('questions.txt', "r")
     list_of_answers=open_file('answers.txt', "r")
     copy_of_list_of_answers = copy.deepcopy(list_of_answers)
@@ -393,79 +414,81 @@ def quiz():
                 if i==Help_available[2]:
                     Halv=bg.red+"50:50"+bg.rs
         n=0
-        for head_lines in range(len(prices)):
+        print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-".rstrip()+bg.rs)
+      
+        print(((table_line_length+2)*" ")+bg.black+"|"+" "+Halv+"∥"+Tel+" "+"∥"+Aud+(len(prices[-1])-(len(Halv)+len(Tel)+len(Aud)+4))*" "+bg.black+"|"+bg.rs)
+        print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
+        print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
+        for head_lines in range(15):
+            last_element=prices3[14-head_lines]
             first_length=len(''.join(vago_feje_sorai[head_lines]))
-            """ print(len(vago_feje_sorai[1][0]))
-            print(table_line_length)
-            print(first_length)
-            print(table_line_length-first_length) """
-            spaces=12
+            spaces=14
             szám=len(vago_feje_sorai[head_lines][0].strip())
             if szám>10:
                     if szám ==11:
-                       spaces=10
+                       spaces=12
                     if szám ==12:
-                       spaces=16
+                       spaces=18
                     if szám ==13:
-                       spaces=15
+                       spaces=17
                     if szám ==14:
-                       spaces=10
+                       spaces=12
                     if szám ==15:
-                       spaces=10
+                       spaces=12
                     if szám==16:
-                        spaces=8
+                        spaces=10
                     if szám==17:
-                        spaces=8
+                        spaces=10
                     if szám==18:
-                        spaces=8
+                        spaces=10
                     if szám==19:
-                        spaces=6
-                    if szám==20:
                         spaces=8
+                    if szám==20:
+                        spaces=10
                     if szám==21:
-                        spaces=5
+                        spaces=7
                     if szám==22:
-                        spaces=5
+                        spaces=7
                     if szám==23:
-                        spaces=5
+                        spaces=7
                     if szám==24:
-                        spaces=4
+                        spaces=6
                     if szám==25:
-                        spaces=3
-                    if szám==26:
-                        spaces=3
-                    if szám==27:
                         spaces=5
+                    if szám==26:
+                        spaces=5
+                    if szám==27:
+                        spaces=7
                     if szám==28:
-                        spaces=3
+                        spaces=5
                     if szám==29:
-                        spaces=5  
+                        spaces=7  
                     if szám==30:
-                        spaces=3
+                        spaces=5
                     if szám==31:
-                        spaces=3
+                        spaces=5
                     if szám==32:
-                        spaces=3
-
-
-            if head_lines==0:
-                prices[0]="5.000 Ft" 
-            if head_lines==4:
-                prices[4]=bg.black+fg.white+prices[4]+"   "+fg.rs+bg.rs
-            if head_lines==9:
-                prices[9]=bg.black+fg.white+prices[9]+fg.rs+"  "+bg.rs
-            if head_lines==14:
-                prices[14]=fg.white+prices[14]+fg.rs 
-            if head_lines==counter:
-                if head_lines==4 or 9 or 14:
-                    prices[head_lines]=fg.white+fg.black+prices[head_lines]+bg.rs+fg.rs+(len(prices[-1])-len(prices[head_lines]))*" "
-                else:
-                    prices[head_lines]=bg.white+fg.black+prices[head_lines]+bg.rs+fg.rs+(len(prices[-1])-len(prices[head_lines]))*" "
-
-            print(''.join(vago_feje_sorai[head_lines]).rstrip()+" ".rstrip()*spaces+" "*spaces+fg.orange+prices[head_lines].rstrip()+fg.rs+(len(prices[-1])-len(prices[head_lines]))*" ".rstrip())
-            #print(''.join(vago_feje_sorai[head_lines]).strip('\n')+7*" "+prices[head_lines].strip('\n'))
-            
-        for art in range(15,20):
+                        spaces=5
+            bg.orange = bg(255, 150, 50)
+            spaces_=(len(prices4[0])-len(prices4[head_lines]))*" "
+            if prices3[head_lines]==prices3[0]:
+                prices3[0]=bg.black+fg.white+prices4[0]
+            if counter==14:
+                prices3[0]=bg.orange+fg.black+prices4[0]
+            if prices3[head_lines]==prices3[counter]:
+                prices3[14-counter]=bg.orange+fg.black+prices4[14-counter]
+                
+                if counter >= 1:
+                    prices3[14-counter+1]=bg.black+fg.orange+prices4[14-counter+1]
+                for n in range(counter+1,15):
+                    if n in [5,10,14]:
+                        prices3[n]=bg.black+fg.white+prices3[n]
+                    prices3[n]=bg.black+fg.orange+prices3[n]
+            #print(len(prices4[0]),len(prices4[1]),len(prices4[2]),len(prices4[3]),len(prices4[4]),len(prices4[5]),)   
+            print(''.join(vago_feje_sorai[head_lines]).strip('\n')+" "*spaces+bg.black+"|"+fg.rs+bg.rs+prices3[head_lines]+spaces_+fg.white+bg.black+"|"+bg.rs+fg.rs)
+        
+        print(''.join(vago_feje_sorai[15]).rstrip()+13*" "+bg.black+(len(prices[:-1])+1)*"-"+bg.rs)
+        for art in range(16,20):
             print(''.join(vago_feje_sorai[art]).rstrip())
         quiz_table(table_line_length,first_choice,second_choice,third_choice,fourth_choice,shuffled_line,question_lines,i)        
         counter += 1
@@ -481,7 +504,10 @@ def quiz():
         marking(answer,current_line,a,b,c,d,first_choice,second_choice,third_choice,fourth_choice,table_line_length,shuffled_line,question_lines,i)
         for round_ in range(len(prices)+1):
             if counter==round_:
-                print(fg.orange +prices[counter]+fg.rs)
+                if counter==0:
+                    print(fg.orange+prices[0]+fg.rs)
+                if counter!=0:
+                    print(fg.orange +prices[counter-1]+fg.rs)
                 time.sleep(1)
         if counter == 5:
             print(fg.orange + "You have guaranteed 100.000 Ft" + fg.rs)
@@ -493,7 +519,7 @@ def quiz():
 
 
 def main():
-    game_start()
+    #game_start()
     quiz()
 
 
