@@ -78,7 +78,7 @@ def help_modules(a,b,c,d,current_line,question,vago_feje_sorai,table_line_length
             Halving=False
 
     answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
-    return Audience, Telephone, Halving
+    return Audience, Telephone, Halving, answer
     
 
 
@@ -270,15 +270,14 @@ def halving(vago_feje_sorai,table_line_length,question,shuffled_line,choises,cur
     for shuffled_element in shuffled_line:
         if shuffled_element == current_line[0]:
             possibilities.append(shuffled_element)
-            for index in range(1):
-                if shuffled_element==a:
-                    possibilities.append(random.choice([b,c,d]))
-                elif shuffled_element==b:
-                    possibilities.append(random.choice([a,c,d]))
-                elif shuffled_element==c:
-                    possibilities.append(random.choice([a,b,d]))
-                elif shuffled_element==d:
-                    possibilities.append(random.choice([a,c,b]))
+            if shuffled_element==a:
+                possibilities.append(random.choice([b,c,d]))
+            elif shuffled_element==b:
+                possibilities.append(random.choice([a,c,d]))
+            elif shuffled_element==c:
+                possibilities.append(random.choice([a,b,d]))
+            elif shuffled_element==d:
+                possibilities.append(random.choice([a,c,b]))
     if a not in possibilities:
         choises[0]=fg.orange + '◆ A: ' +" "*len(a)+ fg.rs
     if b not in possibilities:
@@ -373,9 +372,8 @@ def quiz():
     Halving=True
     counter = 0
     prices=["5.000 Ft","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000 Ft","1.500.000 Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","20.000.000 Ft","40.000.000 Ft"]
-    prices2=["5.000 Ft","10.000 Ft", "25.000 Ft","50.000 Ft","100.000 Ft","200.000 Ft","300.000 Ft","500.000 Ft","800.000 Ft","1.500.000 Ft","3.000.000 Ft","5.000.000 Ft","10.000.000 Ft","20.000.000 Ft","40.000.000 Ft"]
-    prices4=['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
-    prices3=['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
+    prices1=['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
+    prices2=['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
     question_lines=open_file('questions.txt', "r")
     list_of_answers=open_file('answers.txt', "r")
     copy_of_list_of_answers = copy.deepcopy(list_of_answers)
@@ -429,8 +427,6 @@ def quiz():
         print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
         print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
         for head_lines in range(15):
-            last_element=prices3[14-head_lines]
-            first_length=len(''.join(vago_feje_sorai[head_lines]))
             spaces=14
             szám=len(vago_feje_sorai[head_lines][0].strip())
             if szám>10:
@@ -479,22 +475,21 @@ def quiz():
                     if szám==32:
                         spaces=5
             bg.orange = bg(255, 150, 50)
-            spaces_=(len(prices4[0])-len(prices4[head_lines]))*" "
-            if prices3[head_lines]==prices3[0]:
-                prices3[0]=bg.black+fg.white+prices4[0]
+            spaces_=(len(prices1[0])-len(prices1[head_lines]))*" "
+            if prices2[head_lines]==prices2[0]:
+                prices2[0]=bg.black+fg.white+prices1[0]
             if counter==14:
-                prices3[0]=bg.orange+fg.black+prices4[0]
-            if prices3[head_lines]==prices3[counter]:
-                prices3[14-counter]=bg.orange+fg.black+prices4[14-counter]
+                prices2[0]=bg.orange+fg.black+prices1[0]
+            if prices2[head_lines]==prices2[counter]:
+                prices2[14-counter]=bg.orange+fg.black+prices1[14-counter]
                 
                 if counter >= 1:
-                    prices3[14-counter+1]=bg.black+fg.orange+prices4[14-counter+1]
+                    prices2[14-counter+1]=bg.black+fg.orange+prices1[14-counter+1]
                 for n in range(counter+1,15):
                     if n in [5,10,14]:
-                        prices3[n]=bg.black+fg.white+prices3[n]
-                    prices3[n]=bg.black+fg.orange+prices3[n]
-            #print(len(prices4[0]),len(prices4[1]),len(prices4[2]),len(prices4[3]),len(prices4[4]),len(prices4[5]),)   
-            print(''.join(vago_feje_sorai[head_lines]).strip('\n')+" "*spaces+bg.black+"|"+fg.rs+bg.rs+prices3[head_lines]+spaces_+fg.white+bg.black+"|"+bg.rs+fg.rs)
+                        prices2[n]=bg.black+fg.white+prices2[n]
+                    prices2[n]=bg.black+fg.orange+prices2[n]
+            print(''.join(vago_feje_sorai[head_lines]).strip('\n')+" "*spaces+bg.black+"|"+fg.rs+bg.rs+prices2[head_lines]+spaces_+fg.white+bg.black+"|"+bg.rs+fg.rs)
         
         print(''.join(vago_feje_sorai[15]).rstrip()+13*" "+bg.black+(len(prices[:-1])+1)*"-"+bg.rs)
         for art in range(16,20):
@@ -502,14 +497,13 @@ def quiz():
         quiz_table(table_line_length,choises,question,shuffled_line)        
         counter += 1
         answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
-        answer = input("Are you sure?")
         if answer.lower()=='h':
             vago_feje_sorai = open_drawing('vago.txt', 'r')
-            #help_modules(a,b,c,d,current_line,question_lines,i,vago_feje_sorai,table_line_length,shuffled_line,first_choice,second_choice,third_choice,fourth_choice,Audience,Telephone,Halving)
             Help_available=help_modules(a,b,c,d,current_line,question,vago_feje_sorai,table_line_length,shuffled_line,choises,Audience,Telephone,Halving)
             Audience=Help_available[0]
             Telephone=Help_available[1]
             Halving=Help_available[2]
+        answer = input("Are you sure?")
         marking(answer,current_line,a,b,c,d,choises,table_line_length,shuffled_line,question)
         for round_ in range(len(prices)+1):
             if counter==round_:
