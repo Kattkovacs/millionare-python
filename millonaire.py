@@ -280,13 +280,13 @@ def halving(vago_feje_sorai,table_line_length,question,shuffled_line,choises,cur
                 elif shuffled_element==d:
                     possibilities.append(random.choice([a,c,b]))
     if a not in possibilities:
-        first_choice=fg.orange + '◆ A: ' +" "*len(a)+ fg.rs
+        choises[0]=fg.orange + '◆ A: ' +" "*len(a)+ fg.rs
     if b not in possibilities:
-        second_choice=fg.orange + '◆ B: ' +" "*len(b)+ fg.rs
+        choises[1]=fg.orange + '◆ B: ' +" "*len(b)+ fg.rs
     if c not in possibilities:
-        third_choice=fg.orange + '◆ C: '+" "*len(c) + fg.rs
+        choises[2]=fg.orange + '◆ C: '+" "*len(c) + fg.rs
     if d not in possibilities:       
-        fourth_choice=fg.orange + '◆ D: ' +" "*len(d)+ fg.rs
+        choises[3]=fg.orange + '◆ D: ' +" "*len(d)+ fg.rs
 
 
     quiz_table(table_line_length,choises,question,shuffled_line)
@@ -336,13 +336,13 @@ def marking(answer,current_line,a,b,c,d,choises,table_line_length,shuffled_line,
         for pos in [a,b,c,d]:
             if pos==current_line[0]:
                 if pos==a:
-                    first_choice=bg.green + first_choice + bg.black
+                    choises[0]=bg.green + choises[0] + bg.black
                 if pos==b:
-                    second_choice=bg.green + second_choice + bg.black
+                    choises[1]=bg.green + choises[1] + bg.black
                 if pos==c:
-                    third_choice=bg.green + third_choice + bg.black
+                    choises[2]=bg.green + choises[2] + bg.black
                 if pos==d:
-                    fourth_choice=bg.green + fourth_choice + bg.black
+                    choises[3]=bg.green + choises[3] + bg.black
     time.sleep(1)
     os.system('clear')
     quiz_table(table_line_length,choises,question,shuffled_line)
