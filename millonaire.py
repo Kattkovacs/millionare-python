@@ -497,7 +497,7 @@ def quiz():
         answer = input("Select the correct answer(a,b,c,d): \n(In case you need help type 'h')")
         if answer.lower()=='h':
             vago_feje_sorai = open_drawing('vago.txt', 'r')
-            Help_available=help_modules(a,b,c,d,current_line,question,vago_feje_sorai,table_line_length,shuffled_line,choises,Audience,Telephone,Halving)
+            Help_available=help_modules(a,b,c,d,current_line,question,vago_feje_sorai,table_line_length,shuffled_line,choises,Audience,Telephone,Halving,Help_available,prices,prices1,prices2,counter)
             Audience=Help_available[0]
             Telephone=Help_available[1]
             Halving=Help_available[2]
