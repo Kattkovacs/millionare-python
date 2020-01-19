@@ -4,19 +4,19 @@ import sys
 import os
 from sty import Style, RgbFg, fg, rs, bg
 import time
-from playsound import playsound
 import pygame
+
 
 def game_start():
     fg.purple = Style(RgbFg(148, 0, 211))
     pygame.mixer.init()
     os.system('clear')
-    play_sound("loim_intro.wav",0)
+    play_sound("loim_intro.wav", 0)
     time.sleep(2)
     print("This is the game of games..\nIn the arena..\nMr Steven Vágó is awaiting You!\n"+fg.purple+"Become the next Millionaire!\n"+fg.rs)
     time.sleep(5)
 
-def play_sound(filename,starting_time):
+def play_sound(filename, starting_time):
     pygame.mixer.init()
     pygame.mixer.music.load(filename)
     pygame.mixer.music.set_volume(0.07)
@@ -75,7 +75,7 @@ def print_quizmaster_with_prices_table(Help_available,table_line_length,prices,p
     print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
     print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
     for head_lines in range(15):
-        spaces=14
+        """ spaces=14
         szám=len(vago_feje_sorai[head_lines][0].strip())
         if szám>10:
                 if szám ==11:
@@ -121,7 +121,7 @@ def print_quizmaster_with_prices_table(Help_available,table_line_length,prices,p
                 if szám==31:
                     spaces=5
                 if szám==32:
-                    spaces=5
+                    spaces=5 """
         bg.orange = bg(255, 150, 50)
         spaces_=(len(prices1[0])-len(prices1[head_lines]))*" "
         if prices2[head_lines]==prices2[0]:
@@ -379,16 +379,16 @@ def marking(answer,current_line,a,b,c,d,choises,table_line_length,shuffled_line,
     bg.white = bg(255, 255, 255)
     if answer.lower()=='a':
         answer = a
-        choises[0]=bg.white + choises[0] +bg.black
+        choises[0]=bg.white + fg.blue + choises[0] + fg.rs + bg.black
     if answer.lower()=='b':
         answer = b
-        choises[1]=bg.white + choises[1] +bg.black
+        choises[1]=bg.white + fg.blue +  choises[1] + fg.rs +bg.black
     if answer.lower()== 'c':
         answer = c
-        choises[2]=bg.white + choises[2] +bg.black
+        choises[2]=bg.white + fg.blue +  choises[2] + fg.rs +bg.black
     if answer.lower()== 'd':
         answer = d
-        choises[3]=bg.white + choises[3] +bg.black
+        choises[3]=bg.white + fg.blue +  choises[3] + fg.rs +bg.black
     os.system('clear')
     print_quizmaster_with_prices_table(Help_available,table_line_length,prices,prices1,prices2,counter)
     quiz_table(table_line_length,choises,question,shuffled_line)
@@ -524,7 +524,7 @@ def quiz():
 
 
 def main():
-    game_start()
+    #game_start()
     quiz()
 
 
