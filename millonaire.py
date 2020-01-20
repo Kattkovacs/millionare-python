@@ -491,6 +491,11 @@ def quiz():
             os.system('clear')
             play_sound("./msc/zene_le.mp3", 0)
             print_quizmaster_with_prices_table(Help_available,table_line_length,prices,prices1,prices2,counter)
+            quiz_table(table_line_length,choises,question,shuffled_line)    
+            answer=safe_input("\nSelect the correct answer (a,b,c,d)! ", ["a","b","c","d",])
+            marking(answer,current_line,a,b,c,d,choises,table_line_length,shuffled_line,question,Help_available,prices,prices1,prices2,counter)
+            os.system('clear')
+            print_quizmaster_with_prices_table(Help_available,table_line_length,prices,prices1,prices2,counter)
             print("  "+bg.black+"/"+"‾"*(table_line_length-6)+"\\"+bg.rs)
             width  =  table_line_length
             if i == 0:
