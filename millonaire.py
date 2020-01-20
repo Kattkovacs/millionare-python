@@ -21,7 +21,7 @@ def game_start():
 def play_sound(filename, starting_time):
     pygame.mixer.init()
     pygame.mixer.music.load(filename)
-    pygame.mixer.music.set_volume(0.07)
+    #pygame.mixer.music.set_volume(0.07)
     pygame.mixer.music.play(0, starting_time)
 
 
@@ -90,12 +90,11 @@ def print_quizmaster_with_prices_table(Help_available, table_line_length, prices
             if helps == Help_available[2]:
                 Halv = bg.red+"50:50 "+bg.rs
     n = 0
-    print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-".rstrip() + bg.rs)
-    print(((table_line_length+2)*" ")+bg.black+"|"+" "+Halv+"∥"+Tel+"∥"+Aud+(len(prices[-1])-(len(Halv)+len(Tel)+len(Aud)+4))*" "+bg.black+"|"+bg.rs)
-    print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
-    print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
+    print((62*" ")+bg.black+(len(prices[-1])+2)*"-".rstrip() + bg.rs)
+    print((62*" ")+bg.black+"|"+" "+Halv+"∥"+Tel+"∥"+Aud+(len(prices[-1])-(len(Halv)+len(Tel)+len(Aud)+4))*" "+bg.black+"|"+bg.rs)
+    print((62*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
+    print((62*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
     for head_lines in range(15):
-    
         bg.orange = bg(255, 150, 50)
         spaces_ = (len(prices1[0])-len(prices1[head_lines]))*" "
         if prices2[head_lines] == prices2[0]:
@@ -104,7 +103,6 @@ def print_quizmaster_with_prices_table(Help_available, table_line_length, prices
             prices2[0] = bg.orange+fg.black+prices1[0]
         if prices2[head_lines] == prices2[counter]:
             prices2[14-counter] = bg.orange+fg.black+prices1[14-counter]
-            
             if counter >= 1:
                 prices2[14-counter+1] = bg.black+fg.orange+prices1[14-counter+1]
             for n in range(counter+1, 15):
@@ -112,7 +110,6 @@ def print_quizmaster_with_prices_table(Help_available, table_line_length, prices
                     prices2[n] = bg.black+fg.white+prices2[n]
                 prices2[n] = bg.black+fg.orange+prices2[n]
         print(''.join(vago_feje_sorai[head_lines]).strip('\n')+bg.black+"|"+fg.rs+bg.rs+prices2[head_lines]+spaces_+fg.white+bg.black+"|"+bg.rs+fg.rs)
-    
     print(''.join(vago_feje_sorai[15]).rstrip()+13*" "+bg.black+(len(prices[:-1])+1)*"-"+bg.rs)
     for art in range(16, 20):
         print(''.join(vago_feje_sorai[art]).rstrip())
@@ -121,14 +118,14 @@ def print_quizmaster_with_prices_table(Help_available, table_line_length, prices
 def help_modules(a, b, c, d, current_line, question, vago_feje_sorai, table_line_length, shuffled_line, choises, Audience, Telephone, Halving, Help_available, prices, prices1, prices2, counter):
     help_ = input("For Audience's help, type 'a'\nFor Telephone help type 't'\nFor halving type 'h': ")        
     if help_.lower() == "a":
-        if Audience == False:
-            print("You have already used the audience help!")
-        else:    
+        if Audience:
             audience_help(a, b, c, d, current_line, question, table_line_length, choises, shuffled_line)
             Audience = False
             print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
             quiz_table(table_line_length, choises, question, shuffled_line)
-           
+        else:
+            print("You have already used the audience's help!")
+
     if help_.lower() == "t":
         if Telephone:
             telephone_help(question, current_line)
@@ -138,7 +135,6 @@ def help_modules(a, b, c, d, current_line, question, vago_feje_sorai, table_line
 
     if help_.lower() == "h":
         if Halving:
-
             halving(vago_feje_sorai, table_line_length, question, shuffled_line, choises, current_line, a, b, c, d)
             Halving = False
             print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
@@ -147,7 +143,7 @@ def help_modules(a, b, c, d, current_line, question, vago_feje_sorai, table_line
             print("You have already used the halving help!")
     answer = safe_input("Select the correct answer(a,b,c,d):", ["a", "b", "c", "d"])
     return Audience, Telephone, Halving, answer
-    
+
 
 def audience_help(a, b, c ,d, current_line, question, table_line_length, choises, shuffled_line):
     play_sound("./msc/kozonseg.mp3", 0)
@@ -438,15 +434,21 @@ def quiz():
     prices1 = ['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
     prices2 = ['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
     question_lines = open_file('questions.txt', "r")
-    list_of_answers = open_file('answers.txt', "r")
-    copy_of_list_of_answers  =  copy.deepcopy(list_of_answers)
-    for i in range(len(question_lines)):
+    list_of_answers = open_file('questions.txt', "r")
+    #copy_of_list_of_answers  =  copy.deepcopy(list_of_answers)
+    starting_range=0
+    ending_range=4
+    #play_sound("lom.mp3",0)
+    for i in range(15):
         counter  =  i
-        question = question_lines[i]
+        random_question=[]
+        random_question=random.choice(list_of_answers[starting_range:ending_range])
+        question = random_question[0]
         time.sleep(2)
         os.system('clear')
-        current_line  =  list_of_answers[i]
-        shuffled_line  =  copy_of_list_of_answers[i]
+        current_line  =  random_question[1:5]
+        copy_of_list_of_answers=copy.deepcopy(random_question)
+        shuffled_line  =  copy_of_list_of_answers[1:5]
         random.shuffle(shuffled_line)
         a  =  shuffled_line[0]
         b  =  shuffled_line[1]
@@ -484,7 +486,7 @@ def quiz():
         are_you_sure_sound=choose_random_from_list(list_of_are_you_sure_sound_files)
         play_sound(are_you_sure_sound, 0)
         time.sleep(1)
-        answer=safe_input("Are you sure?",["a","b","c","d","s"])
+        answer=safe_input("Are you sure? ",["a","b","c","d","s"])
         if answer.lower()=="s":
             os.system('clear')
             play_sound("./msc/zene_le.mp3", 0)
@@ -519,7 +521,9 @@ def quiz():
         width  =  table_line_length
         len_table = len("‾"*(table_line_length-6-len(won_prize)))
         print("-"+bg.black+"‹"+fg.orange+''.join(won_prize).center((width-4),' ')+fg.rs+"›"+bg.rs+"-")
-        print("  "+bg.black+"\\"+"_"*(table_line_length-6)+"/"+bg.rs)   
+        print("  "+bg.black+"\\"+"_"*(table_line_length-6)+"/"+bg.rs)
+        starting_range=ending_range+1
+        ending_range=starting_range+4
         time.sleep(1)
 
 

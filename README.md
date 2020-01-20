@@ -2,7 +2,7 @@ This is the README file of The Helpless Gooses' Millionare game.
 
 What is it?
 
-It's on the game "Who wants to be a Millionare?", but it's text based.
+It's on the game "Who wants to be a Millionaire?", but it's text based.
 You will get 15 questions in a random order, and you have to choose the correct answer out of 4.
 
 How it works / instrucitons:

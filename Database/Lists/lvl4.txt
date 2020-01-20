@@ -1,0 +1,21 @@
+How tall is the Eiffel Tower?,300 meters,302 meters,303 meters,297 meters
+Who was the 32th president of the USA?,Franklin D. Roosevelt,John F. Kennedy,Richard Nixon,Herbert Hoover
+Which type of shark is the biggest ever?,Megalodon,Great White,Whale Shark,Tiger Shark
+What's the deepest point of the Earth?,Mariana Trench,Philippine Trench,Tonga Trench,Kermadec Trench
+How long are the catacombs under Paris?,300 kilometers,100 kilometers,150 kilometers,250 kilometers
+When was the first camera invented?,1816,1820,1656,1790
+Which animal has the highest speed on land?,Cheetah,Springbok,Lion,Quater Horse
+Who has written the Harry Potter books?,J.K. Rowling,George Orwell,Charles Dickens,Ian Fleming
+Which musician was born in 1756?,Wolfgang Amadeus Mozart,Ludwig van Beethoven,William Herschel,Joseph Haydn
+Who has invented the zeppelin?,Ferdinand von Zeppelin,Karl Maybach,Stefan Sommer,Henri Giffard
+Which is the correct highest point of the Mount Everest?,8848,8840,8830,8838
+When did Henry VIII die?,1435,1978,1523,1547
+Which is the longest bridge in the world?,Danyang-Kunshan  Grand  Bridge,Cangde  Grand  Bridge,Bang  Na  Expressway,Runyang Bridge
+Who was the first woman to fly solo across the Atlantic?,Geraldine Ferraro,Martha Stewart,Amelia Earhart,Sally Ride
+Which state has cities named San Francisco and Hollywood?California,Utah,Hawaii,Montana
+
+
+
+
+
+
