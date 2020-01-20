@@ -12,25 +12,24 @@ def game_start():
     fg.purple = Style(RgbFg(148, 0, 211))
     pygame.mixer.init()
     os.system('clear')
-    play_sound("loim_intro.wav", 0)
+    play_sound("./msc/loim_intro.wav", 0)
     time.sleep(2)
     print("This is the game of games..\nIn the arena..\nMr Steven Vágó is awaiting You!\n"+fg.purple+"Become the next Millionaire!\n"+fg.rs)
     circle.who_wants_to_be_a_millionaire_circle()
     time.sleep(5)
 
-
 def play_sound(filename, starting_time):
     pygame.mixer.init()
     pygame.mixer.music.load(filename)
     pygame.mixer.music.set_volume(0.07)
-    pygame.mixer.music.play(0,starting_time)
+    pygame.mixer.music.play(0, starting_time)
 
 
 def open_file(filename, mode):
     with open(filename, mode) as file:
-        list_of_file  =  []
+        list_of_file = []
         for line in file:
-            line  =  line.strip().split(',')
+            line = line.strip().split(',')
             list_of_file.append(line)
     return list_of_file
 
@@ -39,7 +38,7 @@ def open_drawing(filename, mode):
     with open(filename, mode) as file:
         list_of_file = []
         for line in file:
-            line  = line.split(',')
+            line = line.split(',')
             list_of_file.append(line)
     return list_of_file
 
@@ -47,14 +46,17 @@ def open_drawing(filename, mode):
 def safe_input(input_text, allowed_list_of_letters):
     answer = input(input_text)
     while answer not in allowed_list_of_letters:
-        if allowed_list_of_letters == ["a","b","c","d","h"]:
-            print("Error! Only letters: a, b, c, d, or h allowed!")
+        if allowed_list_of_letters == ["a", "b", "c", "d", "h", "s"]:
+            print("Error! Only letters: a, b, c, d, h or s allowed!")
             answer = input("Select the correct answer!")
         else:
-            print("Error! Only letters: a, b, c, d allowed!")
+            print("Error! Only letters: a, b, c, d, s allowed!")
             answer = input("Select the correct answer!")
     return answer
 
+
+def choose_random_from_list(list_):
+    return random.choice(list_)
 
 def quiz_table(table_line_length, choises, question, shuffled_line):
     print("  "+bg.black+"/"+"‾"*(table_line_length-6)+"\\"+bg.rs)
@@ -67,7 +69,7 @@ def quiz_table(table_line_length, choises, question, shuffled_line):
     upper_line_third_fourth_choise = "  "+bg.black+"/"+(len(shuffled_line[2])+space_left)*"‾"+"\\"+bg.rs+(" "*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+22)))+bg.black+"/"+(len(shuffled_line[3])+space_left)*"‾"+"\\"+bg.rs
     under_line_third_fourth_choise = "  "+bg.black+"\\"+(len(shuffled_line[2])+space_left)*"_"+"/"+bg.rs+(" "*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+22)))+bg.black+"\\"+(len(shuffled_line[3])+space_left)*"_"+"/"+bg.rs
     print(upper_line_first_second_choise)
-    print("-"+bg.black+"‹ "+ choises[0] +" ›"+bg.rs+ ("-"*(table_line_length-(len(shuffled_line[0])+len(shuffled_line[1])+24))) +bg.black+"‹ "+choises[1] + " ›"+bg.rs+"-")
+    print("-"+bg.black+"‹ " + choises[0] + " ›" + bg.rs + ("-"*(table_line_length-(len(shuffled_line[0])+len(shuffled_line[1])+24))) +bg.black+"‹ "+choises[1] + " ›"+bg.rs+"-")
     print(under_line_first_second_choise)
     print(upper_line_third_fourth_choise)
     print("-"+bg.black+"‹ "+ choises[2] +" ›"+bg.rs+ ("-"*(table_line_length-(len(shuffled_line[2])+len(shuffled_line[3])+24)))+bg.black+"‹ "+choises[3] + " ›"+bg.rs+"-")
@@ -80,7 +82,7 @@ def print_quizmaster_with_prices_table(Help_available, table_line_length, prices
     Tel = bg.black+"📞 "
     Halv = "50:50 "
     for helps in Help_available:
-        if helps == False:
+        if not helps:
             if helps == Help_available[0]:
                 Aud = bg.red+"👥 "+bg.rs
             if helps == Help_available[1]:
@@ -88,7 +90,7 @@ def print_quizmaster_with_prices_table(Help_available, table_line_length, prices
             if helps == Help_available[2]:
                 Halv = bg.red+"50:50 "+bg.rs
     n = 0
-    print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-".rstrip()+bg.rs)
+    print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-".rstrip() + bg.rs)
     print(((table_line_length+2)*" ")+bg.black+"|"+" "+Halv+"∥"+Tel+"∥"+Aud+(len(prices[-1])-(len(Halv)+len(Tel)+len(Aud)+4))*" "+bg.black+"|"+bg.rs)
     print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
     print(((table_line_length+2)*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
@@ -122,65 +124,66 @@ def help_modules(a, b, c, d, current_line, question, vago_feje_sorai, table_line
         if Audience == False:
             print("You have already used the audience help!")
         else:    
-            audience_help(a,b,c,d,current_line,question,table_line_length,choises,shuffled_line)
+            audience_help(a, b, c, d, current_line, question, table_line_length, choises, shuffled_line)
             Audience = False
-            print_quizmaster_with_prices_table(Help_available,table_line_length,prices,prices1,prices2,counter)
-            quiz_table(table_line_length,choises,question,shuffled_line)
+            print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
+            quiz_table(table_line_length, choises, question, shuffled_line)
            
     if help_.lower() == "t":
         if Telephone:
             telephone_help(question, current_line)
-            Telephone  = False
+            Telephone = False
         else:
             print("You have already used the telephone help!")
 
     if help_.lower() == "h":
         if Halving:
+
             halving(vago_feje_sorai, table_line_length, question, shuffled_line, choises, current_line, a, b, c, d)
             Halving = False
-            print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1,prices2,counter)
-            quiz_table(table_line_length,choises,question,shuffled_line)
+            print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
+            quiz_table(table_line_length, choises, question, shuffled_line)
         else:
             print("You have already used the halving help!")
-    answer=safe_input("Select the correct answer(a,b,c,d):", ["a", "b", "c", "d"])
+    answer = safe_input("Select the correct answer(a,b,c,d):", ["a", "b", "c", "d"])
     return Audience, Telephone, Halving, answer
     
 
-def audience_help(a,b,c,d,current_line,question,table_line_length,choises,shuffled_line):
-    play_sound("kozonseg.mp3",0)
-    for choise in [a,b,c,d]:
+def audience_help(a, b, c ,d, current_line, question, table_line_length, choises, shuffled_line):
+    play_sound("./msc/kozonseg.mp3", 0)
+    for choise in [a, b, c, d]:
         if choise == current_line[0]:
             if choise == a:
-                a_percent = random.randrange(40,89)
-                b_percent = random.randrange(0,(100-a_percent))
-                c_percent = random.randrange(0,(100-a_percent-b_percent))
+                a_percent = random.randrange(40, 89)
+                b_percent = random.randrange(0, (100-a_percent))
+                c_percent = random.randrange(0, (100-a_percent-b_percent))
                 d_percent = 100-(a_percent+b_percent+c_percent)
             if choise == b:
-                b_percent = random.randrange(40,89)
-                a_percent = random.randrange(0,(100-b_percent))
-                c_percent = random.randrange(0,(100-b_percent-a_percent))
+                b_percent = random.randrange(40, 89)
+                a_percent = random.randrange(0, (100-b_percent))
+                c_percent = random.randrange(0, (100-b_percent-a_percent))
                 d_percent = 100-(a_percent+b_percent+c_percent)
             if choise == c:
-                c_percent = random.randrange(40,89)
-                b_percent = random.randrange(0,(100-c_percent))
-                a_percent = random.randrange(0,(100-c_percent-b_percent))
+                c_percent = random.randrange(40, 89)
+                b_percent = random.randrange(0, (100-c_percent))
+                a_percent = random.randrange(0, (100-c_percent-b_percent))
                 d_percent = 100-(a_percent+b_percent+c_percent)
             if choise == d:
-                d_percent = random.randrange(40,89)
-                b_percent = random.randrange(0,(100-d_percent))
-                c_percent = random.randrange(0,(100-d_percent-b_percent))
+                d_percent = random.randrange(40, 89)
+                b_percent = random.randrange(0, (100-d_percent))
+                c_percent = random.randrange(0, (100-d_percent-b_percent))
                 a_percent = 100-(d_percent+b_percent+c_percent)
-            if a_percent+b_percent+c_percent+d_percent !=  100:
+            if a_percent+b_percent+c_percent+d_percent != 100:
                 print(" AUDIENCE HELP IS BROKEN!!!")
                 break
             os.system('clear')
-            for choise_ in [a,b,c,d]:
-                if choise  == current_line[0]:
+            for choise_ in [a, b, c, d]:
+                if choise == current_line[0]:
                     if choise_ == a:
-                        fake_a_percent = random.randrange(40,89)
-                        fake_b_percent = random.randrange(0,(100-fake_a_percent))
-                        fake_c_percent = random.randrange(0,(100-fake_a_percent-fake_b_percent))
-                        fake_d_percent = 100-(fake_a_percent+fake_b_percent+fake_c_percent)
+                        fake_a_percent = random.randrange(40, 89)
+                        fake_b_percent = random.randrange(0, (100-fake_a_percent))
+                        fake_c_percent = random.randrange(0, (100-fake_a_percent-fake_b_percent))
+                        fake_d_percent = 100-(fake_a_percent+fake_b_percent+ fake_c_percent)
                     if choise_ == b:
                         fake_b_percent = random.randrange(40,89)
                         fake_a_percent = random.randrange(0,(100-fake_b_percent))
@@ -196,19 +199,19 @@ def audience_help(a,b,c,d,current_line,question,table_line_length,choises,shuffl
                         fake_b_percent = random.randrange(0,(100-fake_d_percent))
                         fake_c_percent = random.randrange(0,(100-fake_d_percent-fake_b_percent))
                         fake_a_percent = 100-(fake_d_percent+fake_b_percent+fake_c_percent)
-                    if fake_a_percent+fake_b_percent+fake_c_percent+fake_d_percent !=  100:
+                    if fake_a_percent+fake_b_percent+fake_c_percent+fake_d_percent != 100:
                         print("Sheibe")
                 print("A:"+bg.blue+fake_a_percent*" "+" "+str(fake_a_percent)+"%"+"\n"+bg.rs+"B:"+bg.blue+fake_b_percent*" "+" "+str(fake_b_percent)+"%"+"\n"+bg.rs+"C:"+bg.blue+fake_c_percent*" "+" "+str(fake_c_percent)+"%"+"\n"+bg.rs+"D:"+bg.blue+fake_d_percent*" "+" "+str(fake_d_percent)+"%"+"\n"+bg.rs)
                 time.sleep(1)
                 os.system('clear')
                 sys.stdout.write("\033[F")
-            elems = [a_percent,b_percent,c_percent,d_percent]
-            max_element = max(elems[0],elems[1],elems[2],elems[3])
+            elems = [a_percent, b_percent, c_percent, d_percent]
+            max_element = max(elems[0], elems[1], elems[2], elems[3])
             a__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  A: {bg.rs+bg.blue+a_percent*" "+bg.black+fg.rs+str(a_percent)}%')
             b__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  B: {bg.rs+bg.blue+b_percent*" "+bg.black+fg.rs+str(b_percent)}%')
             c__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  C: {bg.rs+bg.blue+c_percent*" "+bg.black+fg.rs+str(c_percent)}%')
             d__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  D: {bg.rs+bg.blue+d_percent*" "+bg.black+fg.rs+str(d_percent)}%')
-            print((table_line_length+1)*" "+bg.black+(max_element+11)*"-"+bg.rs)
+            print((table_line_length+1)*" " + bg.black + (max_element+11)*"-" + bg.rs)
             print(a__+(((max_element)-a_percent)+3)*" "+"|"+bg.rs)
             time.sleep(1)
             print(b__+(((max_element)-b_percent)+2)*" "+"|"+bg.rs)
@@ -216,17 +219,17 @@ def audience_help(a,b,c,d,current_line,question,table_line_length,choises,shuffl
             print(c__+(((max_element)-c_percent)+2)*" "+"|"+bg.rs)
             time.sleep(1)
             print(d__+(((max_element)-d_percent)+3)*" "+"|"+bg.rs)
-            print((table_line_length+1)*" "+bg.black+(max_element+11)*"-"+bg.rs)
+            print((table_line_length+1)*" "+bg.black+(max_element+11)*"-" + bg.rs)
 
 
-def telephone_help(question,current_line):
+def telephone_help(question, current_line):
 
     phone = input("Who'd you like to call?\nfor mum, press 'm'\nfor dad press 'd'\nfor old teacher from high school press 't'\nfor Maester Yoda press 'y': ")
     if phone.lower() == 'm':
-        play_sound("telhiv.mp3",0)
+        play_sound("./msc/telhiv.mp3", 0)
         time.sleep(2)
-        play_sound("telefon.mp3",0)
-        then  =  time.time()
+        play_sound("./msc/telefon.mp3", 0)
+        then = time.time()
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         print("Hi mummy, I'm playing the Millionaire..Here's the question.. \n"+', '.join(question))
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
@@ -242,16 +245,16 @@ def telephone_help(question,current_line):
         time.sleep(2)
         print("Okay honey, it is D.. No, no wait, it is " + current_line[0])
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
-        now  =  time.time()
-        play_sound('telefon.mp3',54.0)
+        now = time.time()
+        play_sound('telefon.mp3', 54.0)
         time.sleep(1)
         print("Call Duration: ", int(now-then), " seconds\ 30 a")
 
     if phone.lower() == 'd':
-        play_sound("telhiv.mp3",0)
+        play_sound("./msc/telhiv.mp3", 0)
         time.sleep(2)
-        play_sound("telefon.mp3",0)
-        then  =  time.time()
+        play_sound("./msc/telefon.mp3", 0)
+        then = time.time()
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         print("Hi dad, I'm playing the Millionaire..Here's the question.. \n"', '.join(question))
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
@@ -267,17 +270,17 @@ def telephone_help(question,current_line):
         time.sleep(2)
         print("Okay Son, he says it is A.. No, no wait, it is " + current_line[0])
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
-        now  =  time.time()
+        now = time.time()
         pygame.mixer.music.stop()
-        play_sound('telefon.mp3',54.0)
+        play_sound('./msc/telefon.mp3', 54.0)
         time.sleep(1)
         print("Call Duration: ", int(now-then), " seconds\ 30 seconds")
 
     if phone.lower() == 't':
-        play_sound("telhiv.mp3",0)
+        play_sound("./msc/telhiv.mp3",0)
         time.sleep(2)
-        play_sound("telefon.mp3",0)
-        then  =  time.time()
+        play_sound("./msc/telefon.mp3",0)
+        then = time.time()
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         print("Great day Mr Teacher I am your former student, and I'm playing the Millionaire..Here's the question..\n"', '.join(question))
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
@@ -293,19 +296,18 @@ def telephone_help(question,current_line):
         time.sleep(2)
         print("Okay boy, he says it is A.. No, no wait, it is " + current_line[0])
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
-        now  =  time.time()
+        now = time.time()
         pygame.mixer.music.stop()
-        play_sound('telefon.mp3',54.0)
+        play_sound('./msc/telefon.mp3', 54.0)
         time.sleep(1)       
         print("Call Duration: ", int(now-then), " seconds\ 30 seconds")
 
     if phone.lower() == 'y':
-        play_sound("telhiv.mp3",0)
+        play_sound("./msc/telhiv.mp3",0)
         time.sleep(2)
-        play_sound("telefon.mp3",0)
-        then  =  time.time()
+        play_sound("./msc/telefon.mp3",0)
+        then = time.time()
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
-        #Time after it finished
         print("May the force be with you, my son. How can I help u?")
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         time.sleep(2)
@@ -318,19 +320,19 @@ def telephone_help(question,current_line):
         print("*background* Hi Leila I'm Yoda please help this is the question..")
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
         time.sleep(2)
-        print("The Force says "+ current_line[0] +"\nNever forget, do or don't but never try!")
+        print("The Force says " + current_line[0] + "\nNever forget, do or don't but never try!")
         print(fg.orange+str(30-int(time.time()-then))+fg.rs)
-        now  =  time.time()
+        now = time.time()
         pygame.mixer.music.stop() 
-        play_sound('telefon.mp3',54.0)
+        play_sound('./msc/telefon.mp3',54.0)
         time.sleep(1)
         print("Call Duration: ", int(now-then), " seconds\ 30 seconds max.")
 
 
-def halving(vago_feje_sorai,table_line_length,question,shuffled_line,choises,current_line,a,b,c,d):
+def halving(vago_feje_sorai, table_line_length, question, shuffled_line, choises, current_line, a, b, c, d):
     os.system('clear')
     time.sleep(2)
-    play_sound("felezo.mp3", 0)
+    play_sound("./msc/felezo.mp3", 0)
     vago_feje_sorai = open_drawing('vago.txt', 'r')
     possibilities=[]
     for shuffled_element in shuffled_line:
@@ -372,7 +374,7 @@ def marking(answer,current_line,a,b,c,d,choises,table_line_length,shuffled_line,
     print_quizmaster_with_prices_table(Help_available,table_line_length,prices,prices1,prices2,counter)
     quiz_table(table_line_length,choises,question,shuffled_line)
 
-    play_sound("marked.wav",0)
+    play_sound("./msc/marked.mp3",0)
     time.sleep(4)
     if answer == a:
         if a  ==  current_line[0]:
@@ -414,13 +416,13 @@ def marking(answer,current_line,a,b,c,d,choises,table_line_length,shuffled_line,
     
 def check_answer(answer,current_line,a,b,c,d,choises,table_line_length,shuffled_line,question):
     if answer == current_line[0]:
-        play_sound("jo valasz.mp3",0)
+        play_sound("./msc/jo valasz.mp3",0)
         fg.green  =  Style(RgbFg(0, 255, 0))
         print(fg.green + "Well done!" + fg.rs)
         time.sleep(2)
         os.system('clear')
     else:
-        play_sound("rossz valasz.mp3",0)
+        play_sound("./msc/rossz valasz.mp3",0)
         time.sleep(2)
         fg.red  =  Style(RgbFg(255, 0, 0))
         print(fg.red+answer+"\nBetter luck next time!"+fg.rs)
@@ -471,31 +473,52 @@ def quiz():
             table_line_length = max_question_length
         print_quizmaster_with_prices_table(Help_available,table_line_length,prices,prices1,prices2,counter)
         quiz_table(table_line_length,choises,question,shuffled_line)    
-        answer=safe_input("\nSelect the correct answer (a,b,c,d) or 'h' for help! ", ["a","b","c","d","h"])
+        answer=safe_input("\nSelect the correct answer (a,b,c,d) or 'h' for help! ", ["a","b","c","d","h","s"])
         if answer.lower() == 'h':
             vago_feje_sorai  =  open_drawing('vago.txt', 'r')
             Help_available = help_modules(a,b,c,d,current_line,question,vago_feje_sorai,table_line_length,shuffled_line,choises,Audience,Telephone,Halving,Help_available,prices,prices1,prices2,counter)
             Audience = Help_available[0]
             Telephone = Help_available[1]
             Halving = Help_available[2]
-        answer=safe_input("Are you sure?",["a","b","c","d"])
+        list_of_are_you_sure_sound_files=["./msc/vegleges.mp3","./msc/vegleges2.mp3","./msc/vegleges3.mp3","./msc/vegleges4.mp3","./msc/vegyem_veglegesnek.mp3"]
+        are_you_sure_sound=choose_random_from_list(list_of_are_you_sure_sound_files)
+        play_sound(are_you_sure_sound, 0)
+        time.sleep(1)
+        answer=safe_input("Are you sure?",["a","b","c","d","s"])
+        if answer.lower()=="s":
+            os.system('clear')
+            play_sound("./msc/zene_le.mp3", 0)
+            print_quizmaster_with_prices_table(Help_available,table_line_length,prices,prices1,prices2,counter)
+            print("  "+bg.black+"/"+"‾"*(table_line_length-6)+"\\"+bg.rs)
+            width  =  table_line_length
+            if i == 0:
+                won_prize="0 Ft."
+                len_table = len("‾"*(table_line_length-6-len(won_prize)))
+            else:
+                won_prize=prices[i-1]
+                len_table = len("‾"*(table_line_length-len(prices2[i-1])))
+            print("-"+bg.black+"‹"+fg.orange+''.join(won_prize.center((width-4),' '))+fg.rs+"›"+bg.rs+"-")
+            print("  "+bg.black+"\\"+"_"*(table_line_length-6)+"/"+bg.rs)
+            time.sleep(3)
+            sys.exit(0) 
         marking(answer,current_line,a,b,c,d,choises,table_line_length,shuffled_line,question,Help_available,prices,prices1,prices2,counter)
-        won_prize = fg.orange+prices[i]+fg.rs
+        won_prize = prices[i]
         if i  ==  4:
-            won_prize = fg.orange + "You have guaranteed 100.000 Ft" + fg.rs
+            won_prize = "You have guaranteed 100.000 Ft"
             time.sleep(1)
         elif i  ==  9:
-            won_prize = fg.orange + "You have guaranteed 1.500.000 Ft" + fg.rs
+            won_prize ="You have guaranteed 1.500.000 Ft"
             time.sleep(1)
         elif i  ==  14:
             won_prize = fg.orange + "Congratulations!\nYou've just won the unbelivable 40.000.000 Ft\n"+fg.purple+"You became the new Millionaire!!!" + fg.rs
+            print(won_prize)
             time.sleep(3)
             sys.exit(0)
         print_quizmaster_with_prices_table(Help_available,table_line_length,prices,prices1,prices2,counter)
         print("  "+bg.black+"/"+"‾"*(table_line_length-6)+"\\"+bg.rs)
         width  =  table_line_length
         len_table = len("‾"*(table_line_length-6-len(won_prize)))
-        print("-"+bg.black+"‹"+int(len_table/2)*" "+''.join(won_prize).center((width-4),' ')+(int(len_table/2)+1)*" "+"›"+bg.rs+"-")
+        print("-"+bg.black+"‹"+fg.orange+''.join(won_prize).center((width-4),' ')+fg.rs+"›"+bg.rs+"-")
         print("  "+bg.black+"\\"+"_"*(table_line_length-6)+"/"+bg.rs)   
         time.sleep(1)
 
