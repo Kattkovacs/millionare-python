@@ -61,7 +61,7 @@ The "hryvnia" is the currency of which of these countries?,Ukraine,Turkey,Iran,I
 Who wrote the pamphlet "Common Sense" in 1776?,Thomas Paine,George Read,George Clymer,John Hart
 "The Scream" is a famous painting that was created by...?,Edvard Munch,Pablo Picasso,Claude Monet,Henri Matisse
 Which of the following is NOT a primary color?,Green,Yellow,Red,Blue
-Which of these countries were NOT part of the Axis Powers during World War II?,China,Japan,ItalyGermany
+Which of these countries were NOT part of the Axis Powers during World War II?,China,Japan,Italy,Germany
 How long did the Hundred Years' War last?,116 years,101 years,99 years,100 years
 Which of these is NOT on the periodic table of elements?,Polypodium,Cadmium,Actinium,Beryllium
 Which of these games was featured in the classic film "WarGames?",Tic-Tac-Toe,Checkers,Tower of Hanoi,Nim
