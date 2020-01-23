@@ -55,7 +55,81 @@ def safe_input(input_text, allowed_list_of_letters):
 def choose_random_from_list(list_):
     return random.choice(list_)
 
+    answer = safe_input("Select the correct answer(a,b,c,d):", ["a", "b", "c", "d"])
+    return Audience, Telephone, Halving, answer
 
+
+""" def audience_help(a, b, c, d, current_line, question, table_line_length, choises, shuffled_line):
+    play_sound("./msc/kozonseg.mp3", 0)
+    for choise in [a, b, c, d]:
+        if choise == current_line[0]:
+            if choise == a:
+                a_percent = random.randrange(40, 89)
+                b_percent = random.randrange(0, (100-a_percent))
+                c_percent = random.randrange(0, (100-a_percent-b_percent))
+                d_percent = 100-(a_percent+b_percent+c_percent)
+            if choise == b:
+                b_percent = random.randrange(40, 89)
+                a_percent = random.randrange(0, (100-b_percent))
+                c_percent = random.randrange(0, (100-b_percent-a_percent))
+                d_percent = 100-(a_percent+b_percent+c_percent)
+            if choise == c:
+                c_percent = random.randrange(40, 89)
+                b_percent = random.randrange(0, (100-c_percent))
+                a_percent = random.randrange(0, (100-c_percent-b_percent))
+                d_percent = 100-(a_percent+b_percent+c_percent)
+            if choise == d:
+                d_percent = random.randrange(40, 89)
+                b_percent = random.randrange(0, (100-d_percent))
+                c_percent = random.randrange(0, (100-d_percent-b_percent))
+                a_percent = 100-(d_percent+b_percent+c_percent)
+            if a_percent+b_percent+c_percent+d_percent != 100:
+                print(" AUDIENCE HELP IS BROKEN!!!")
+                break
+            os.system('clear')
+            for choise_ in [a, b, c, d]:
+                if choise == current_line[0]:
+                    if choise_ == a:
+                        fake_a_percent = random.randrange(40, 89)
+                        fake_b_percent = random.randrange(0, (100-fake_a_percent))
+                        fake_c_percent = random.randrange(0, (100-fake_a_percent-fake_b_percent))
+                        fake_d_percent = 100-(fake_a_percent + fake_b_percent + fake_c_percent)
+                    if choise_ == b:
+                        fake_b_percent = random.randrange(40, 89)
+                        fake_a_percent = random.randrange(0, (100-fake_b_percent))
+                        fake_c_percent = random.randrange(0, (100-fake_b_percent-fake_a_percent))
+                        fake_d_percent = 100-(fake_a_percent+fake_b_percent+fake_c_percent)
+                    if choise_ == c:
+                        fake_c_percent = random.randrange(40, 89)
+                        fake_b_percent = random.randrange(0, (100-fake_c_percent))
+                        fake_a_percent = random.randrange(0, (100-fake_c_percent-fake_b_percent))
+                        fake_d_percent = 100-(fake_a_percent+fake_b_percent+fake_c_percent)
+                    if choise_ == d:
+                        fake_d_percent = random.randrange(40, 89)
+                        fake_b_percent = random.randrange(0, (100-fake_d_percent))
+                        fake_c_percent = random.randrange(0, (100-fake_d_percent-fake_b_percent))
+                        fake_a_percent = 100-(fake_d_percent+fake_b_percent+fake_c_percent)
+                    if fake_a_percent+fake_b_percent+fake_c_percent+fake_d_percent != 100:
+                        print("Sheibe")
+                print("A:"+bg.blue+fake_a_percent*" "+" "+str(fake_a_percent)+"%"+"\n"+bg.rs+"B:"+bg.blue+fake_b_percent*" "+" "+str(fake_b_percent)+"%"+"\n"+bg.rs+"C:"+bg.blue+fake_c_percent*" "+" "+str(fake_c_percent)+"%"+"\n"+bg.rs+"D:"+bg.blue+fake_d_percent*" "+" "+str(fake_d_percent)+"%"+"\n"+bg.rs)
+                time.sleep(1)
+                os.system('clear')
+                sys.stdout.write("\033[F")
+            elems = [a_percent, b_percent, c_percent, d_percent]
+            max_element = max(elems[0], elems[1], elems[2], elems[3])
+            a__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  A: {bg.rs+bg.blue+a_percent*" "+bg.black+fg.rs+str(a_percent)}%')
+            b__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  B: {bg.rs+bg.blue+b_percent*" "+bg.black+fg.rs+str(b_percent)}%')
+            c__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  C: {bg.rs+bg.blue+c_percent*" "+bg.black+fg.rs+str(c_percent)}%')
+            d__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  D: {bg.rs+bg.blue+d_percent*" "+bg.black+fg.rs+str(d_percent)}%')
+            print((table_line_length+1)*" " + bg.black + (max_element+11)*"-" + bg.rs)
+            print(a__+(((max_element)-a_percent)+3)*" "+"|"+bg.rs)
+            time.sleep(1)
+            print(b__+(((max_element)-b_percent)+2)*" "+"|"+bg.rs)
+            time.sleep(1)
+            print(c__+(((max_element)-c_percent)+2)*" "+"|"+bg.rs)
+            time.sleep(1)
+            print(d__+(((max_element)-d_percent)+3)*" "+"|"+bg.rs)
+            print((table_line_length+1)*" "+bg.black+(max_element+11)*"-" + bg.rs) """
 def quiz_table(table_line_length, choises, question, shuffled_line):
     print("  "+bg.black+"/"+"‾"*(table_line_length-6)+"\\"+bg.rs)
     width = table_line_length
@@ -142,78 +216,25 @@ def help_modules(a, b, c, d, current_line, question, vago_feje_sorai, table_line
     answer = safe_input("Select the correct answer(a,b,c,d):", ["a", "b", "c", "d"])
     return Audience, Telephone, Halving, answer
 
+def válogatós_függvény():
+    percents= []
+    percents.append(random.randrange(40, 89))
+    percents.append(random.randrange(0, 100-percents[0]))
+    percents.append(random.randrange(0, 100-percents[0]-percents[1]))
+    percents.append(100-(percents[0]+percents[1]+percents[2]))
+    if percents[0]+percents[1]+percents[2]+percents[3] != 100:
+        print(" AUDIENCE HELP IS BROKEN!!!")
+    return percents
+
+
 
 def audience_help(a, b, c, d, current_line, question, table_line_length, choises, shuffled_line):
-    play_sound("./msc/kozonseg.mp3", 0)
-    for choise in [a, b, c, d]:
-        if choise == current_line[0]:
-            if choise == a:
-                a_percent = random.randrange(40, 89)
-                b_percent = random.randrange(0, (100-a_percent))
-                c_percent = random.randrange(0, (100-a_percent-b_percent))
-                d_percent = 100-(a_percent+b_percent+c_percent)
-            if choise == b:
-                b_percent = random.randrange(40, 89)
-                a_percent = random.randrange(0, (100-b_percent))
-                c_percent = random.randrange(0, (100-b_percent-a_percent))
-                d_percent = 100-(a_percent+b_percent+c_percent)
-            if choise == c:
-                c_percent = random.randrange(40, 89)
-                b_percent = random.randrange(0, (100-c_percent))
-                a_percent = random.randrange(0, (100-c_percent-b_percent))
-                d_percent = 100-(a_percent+b_percent+c_percent)
-            if choise == d:
-                d_percent = random.randrange(40, 89)
-                b_percent = random.randrange(0, (100-d_percent))
-                c_percent = random.randrange(0, (100-d_percent-b_percent))
-                a_percent = 100-(d_percent+b_percent+c_percent)
-            if a_percent+b_percent+c_percent+d_percent != 100:
-                print(" AUDIENCE HELP IS BROKEN!!!")
-                break
-            os.system('clear')
-            for choise_ in [a, b, c, d]:
-                if choise == current_line[0]:
-                    if choise_ == a:
-                        fake_a_percent = random.randrange(40, 89)
-                        fake_b_percent = random.randrange(0, (100-fake_a_percent))
-                        fake_c_percent = random.randrange(0, (100-fake_a_percent-fake_b_percent))
-                        fake_d_percent = 100-(fake_a_percent + fake_b_percent + fake_c_percent)
-                    if choise_ == b:
-                        fake_b_percent = random.randrange(40, 89)
-                        fake_a_percent = random.randrange(0, (100-fake_b_percent))
-                        fake_c_percent = random.randrange(0, (100-fake_b_percent-fake_a_percent))
-                        fake_d_percent = 100-(fake_a_percent+fake_b_percent+fake_c_percent)
-                    if choise_ == c:
-                        fake_c_percent = random.randrange(40, 89)
-                        fake_b_percent = random.randrange(0, (100-fake_c_percent))
-                        fake_a_percent = random.randrange(0, (100-fake_c_percent-fake_b_percent))
-                        fake_d_percent = 100-(fake_a_percent+fake_b_percent+fake_c_percent)
-                    if choise_ == d:
-                        fake_d_percent = random.randrange(40, 89)
-                        fake_b_percent = random.randrange(0, (100-fake_d_percent))
-                        fake_c_percent = random.randrange(0, (100-fake_d_percent-fake_b_percent))
-                        fake_a_percent = 100-(fake_d_percent+fake_b_percent+fake_c_percent)
-                    if fake_a_percent+fake_b_percent+fake_c_percent+fake_d_percent != 100:
-                        print("Sheibe")
-                print("A:"+bg.blue+fake_a_percent*" "+" "+str(fake_a_percent)+"%"+"\n"+bg.rs+"B:"+bg.blue+fake_b_percent*" "+" "+str(fake_b_percent)+"%"+"\n"+bg.rs+"C:"+bg.blue+fake_c_percent*" "+" "+str(fake_c_percent)+"%"+"\n"+bg.rs+"D:"+bg.blue+fake_d_percent*" "+" "+str(fake_d_percent)+"%"+"\n"+bg.rs)
-                time.sleep(1)
-                os.system('clear')
-                sys.stdout.write("\033[F")
-            elems = [a_percent, b_percent, c_percent, d_percent]
-            max_element = max(elems[0], elems[1], elems[2], elems[3])
-            a__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  A: {bg.rs+bg.blue+a_percent*" "+bg.black+fg.rs+str(a_percent)}%')
-            b__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  B: {bg.rs+bg.blue+b_percent*" "+bg.black+fg.rs+str(b_percent)}%')
-            c__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  C: {bg.rs+bg.blue+c_percent*" "+bg.black+fg.rs+str(c_percent)}%')
-            d__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  D: {bg.rs+bg.blue+d_percent*" "+bg.black+fg.rs+str(d_percent)}%')
-            print((table_line_length+1)*" " + bg.black + (max_element+11)*"-" + bg.rs)
-            print(a__+(((max_element)-a_percent)+3)*" "+"|"+bg.rs)
-            time.sleep(1)
-            print(b__+(((max_element)-b_percent)+2)*" "+"|"+bg.rs)
-            time.sleep(1)
-            print(c__+(((max_element)-c_percent)+2)*" "+"|"+bg.rs)
-            time.sleep(1)
-            print(d__+(((max_element)-d_percent)+3)*" "+"|"+bg.rs)
-            print((table_line_length+1)*" "+bg.black+(max_element+11)*"-" + bg.rs)
+    os.system('clear')
+    szupilista=válogatós_függvény()
+    print(bg.black+current_line[0]+": "+str(szupilista[0])+"%"+bg.rs)
+    print(bg.black+current_line[1]+": "+str(szupilista[1])+"%"+bg.rs)
+    print(bg.black+current_line[2]+": "+str(szupilista[2])+"%"+bg.rs)
+    print(bg.black+current_line[3]+": "+str(szupilista[3])+"%"+bg.rs)
 
 
 def telefonálgatós_függvény(text, question, good_answer):
@@ -223,20 +244,24 @@ def telefonálgatós_függvény(text, question, good_answer):
     then = time.time() 
     print(fg.orange+str(30-int(time.time()-then))+fg.rs)
     time.sleep(2)
-    print(text[0])
+    print(''.join(text[0]))
     print("\n"+''.join(question))
-    print(text[1])
     print(fg.orange+str(30-int(time.time()-then))+fg.rs)
     time.sleep(2)
-    print(text[2])
+    print(''.join(text[1]))
     print(fg.orange+str(30-int(time.time()-then))+fg.rs)
     time.sleep(2)
-    print(fg.red+text[3]+fg.rs)
+    print(fg.red+''.join(text[2])+fg.rs)
     print(fg.orange+str(30-int(time.time()-then))+fg.rs)
     time.sleep(2)
-    print(text[4] + good_answer+"\n")
-    if text[4] == "The Force says ":
-        print(text[5])
+    print(''.join(text[3]))
+    if text[2][0] == 'I call the Force for help!':
+        print(''.join(text[4]))
+        print(good_answer+"\n")
+        print(''.join(text[5]))
+    else:
+        print(''.join(text[4]))
+        print(good_answer+"\n")
     print(fg.orange+str(30-int(time.time()-then))+fg.rs)
     now = time.time()
     #play_sound('telefon.mp3', 54.0)
@@ -244,40 +269,16 @@ def telefonálgatós_függvény(text, question, good_answer):
     print("Call Duration: ", int(now-then), " seconds\\ 30 a")
 
 def telephone_help(question, current_line):
-
     phone = safe_input("Who'd you like to call?\nfor mum, press 'm'\nfor dad press 'd'\nfor old teacher from high school press 't'\nfor Maester Yoda press 'y': ", ["m","d","t","y"])
-    if phone.lower() == 'm':
-        text=["Hi mummy, I'm playing the Millionaire..\nHere's the question.. ",
-        "Hi Honey.. I don't know the answer i'll ask your dad",
-        "..Dad!..Daddy!..Our son is in the Millionaire Show!! Can you believe??",
-        "Mum please my time is almost up!!",
-        "Okay honey, it is D.. No, no wait, it is "]
-        telefonálgatós_függvény(text, question, current_line[0])
-    
-    if phone.lower() == 'd':
-        text=["Hi dad, I'm playing the Millionaire..\nHere's the question..  ",
-        "Hi Son.. I don't know the answer i'll ask your grandfather",
-        "..Dad!..Daddy!..Your grandson is in the Millionaire Show!! Can you believe??",
-        "Dad please my time is almost up!!",
-        "Okay Son, he says it is A.. No, no wait, it is "]
-        telefonálgatós_függvény(text, question, current_line[0])
-    
-    if phone.lower() == 't':
-        text=["Great day Mr Teacher I am your former student, and I'm playing the Millionaire..\nHere's the question.. ",
-        "Welcome.. I'd never thought after so many years you'd call me!",
-        "I have to tell the principle..Mr!..Mr Principle!..One of your former student is in the Millionaire Show!! Can you believe??",
-        "Sir please my time is almost up!!",
-        "Okay boy, he says it is A.. No, no wait, it is "]
-        telefonálgatós_függvény(text, question, current_line[0])
-    
-    if phone.lower() == 'y':
-        text=["Hi Maester Yoda! I'm the young padavan You have raised many years ago..\nI need your force of knowledge because I'm playing the Millionaire..Here's the question..",
-        "May the force be with you, my son.",
-        "I call the Force for help!",
-        "*background* Hi Leila I'm Yoda please help this is the question..",
-        "The Force says ",
-        "And never forget: Do or don't but never try!"]
-        telefonálgatós_függvény(text, question, current_line[0])
+    call_list=['m','d','t','y']
+    call_text_files=["./Database/Telephone_conversations/mum.txt",
+    "./Database/Telephone_conversations/dad.txt",
+    "./Database/Telephone_conversations/teacher.txt"
+    "./Database/Telephone_conversations/yoda_master.txt"]
+    for betu in call_list:
+        if phone.lower()==betu:
+            text=(open_file(call_text_files[call_list.index(betu)],'r'))
+            telefonálgatós_függvény(text, question, current_line[0])
        
 
 def halving(vago_feje_sorai, table_line_length, question, shuffled_line, choises, current_line, a, b, c, d):
@@ -423,8 +424,9 @@ def quiz():
                 max_question_length = len(question_)
         for answer in list_of_answers:
             for element in answer:
-                answer_lengths.append(len(element))
-                answer_lengths.sort()
+                if element != answer[0]:
+                    answer_lengths.append(len(element))
+                    answer_lengths.sort()
         if answer_lengths[-1]*2 > max_question_length:
             table_line_length = answer_lengths[-1]*2
         else:
@@ -489,7 +491,7 @@ def quiz():
 
 
 def main():
-    game_start()
+    #game_start()
     quiz()
 
 
