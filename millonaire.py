@@ -216,7 +216,7 @@ def help_modules(a, b, c, d, current_line, question, vago_feje_sorai, table_line
     answer = safe_input("Select the correct answer(a,b,c,d):", ["a", "b", "c", "d"])
     return Audience, Telephone, Halving, answer
 
-def válogatós_függvény():
+def give_audience_choises():
     percents= []
     percents.append(random.randrange(40, 89))
     percents.append(random.randrange(0, 100-percents[0]))
@@ -227,17 +227,16 @@ def válogatós_függvény():
     return percents
 
 
-
 def audience_help(a, b, c, d, current_line, question, table_line_length, choises, shuffled_line):
     os.system('clear')
-    szupilista=válogatós_függvény()
-    print(bg.black+current_line[0]+": "+str(szupilista[0])+"%"+bg.rs)
-    print(bg.black+current_line[1]+": "+str(szupilista[1])+"%"+bg.rs)
-    print(bg.black+current_line[2]+": "+str(szupilista[2])+"%"+bg.rs)
-    print(bg.black+current_line[3]+": "+str(szupilista[3])+"%"+bg.rs)
+    percents_list = give_audience_choises()
+    print(bg.black+current_line[0]+": "+str(percents_list[0])+"%"+bg.rs)
+    print(bg.black+current_line[1]+": "+str(percents_list[1])+"%"+bg.rs)
+    print(bg.black+current_line[2]+": "+str(percents_list[2])+"%"+bg.rs)
+    print(bg.black+current_line[3]+": "+str(percents_list[3])+"%"+bg.rs)
 
 
-def telefonálgatós_függvény(text, question, good_answer):
+def print_phone_conversation(text, question, good_answer):
     play_sound("./msc/telhiv.mp3", 0)
     time.sleep(2)
     play_sound("./msc/telefon.mp3", 0)
@@ -268,18 +267,19 @@ def telefonálgatós_függvény(text, question, good_answer):
     time.sleep(1)
     print("Call Duration: ", int(now-then), " seconds\\ 30 a")
 
+
 def telephone_help(question, current_line):
     phone = safe_input("Who'd you like to call?\nfor mum, press 'm'\nfor dad press 'd'\nfor old teacher from high school press 't'\nfor Maester Yoda press 'y': ", ["m","d","t","y"])
-    call_list=['m','d','t','y']
-    call_text_files=["./Database/Telephone_conversations/mum.txt",
+    call_list = ['m', 'd', 't', 'y']
+    call_text_files = ["./Database/Telephone_conversations/mum.txt",
     "./Database/Telephone_conversations/dad.txt",
     "./Database/Telephone_conversations/teacher.txt"
     "./Database/Telephone_conversations/yoda_master.txt"]
     for betu in call_list:
-        if phone.lower()==betu:
-            text=(open_file(call_text_files[call_list.index(betu)],'r'))
-            telefonálgatós_függvény(text, question, current_line[0])
-       
+        if phone.lower() == betu:
+            text = (open_file(call_text_files[call_list.index(betu)], 'r'))
+            print_phone_conversation(text, question, current_line[0])
+
 
 def halving(vago_feje_sorai, table_line_length, question, shuffled_line, choises, current_line, a, b, c, d):
     os.system('clear')
@@ -491,7 +491,7 @@ def quiz():
 
 
 def main():
-    #game_start()
+    game_start()
     quiz()
 
 
