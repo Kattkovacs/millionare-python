@@ -27,6 +27,7 @@ def play_sound(filename, starting_time):
 
 
 def open_file(filename, mode):
+    
     with open(filename, mode) as file:
         list_of_file = []
         for line in file:
@@ -36,6 +37,7 @@ def open_file(filename, mode):
 
 
 def open_drawing(filename, mode):
+   
     with open(filename, mode) as file:
         list_of_file = []
         for line in file:
@@ -45,21 +47,20 @@ def open_drawing(filename, mode):
 
 
 def safe_input(input_text, allowed_list_of_letters):
+    
     answer = input(input_text)
     while answer not in allowed_list_of_letters:
-        print("Error! Only letters: " + ' '.join(allowed_list_of_letters) +" allowed!")
+        print("Error! Only letters: " + ' '.join(allowed_list_of_letters) + " allowed!")
         answer = input("Select the correct answer!")
     return answer
 
 
 def choose_random_from_list(list_):
+
     return random.choice(list_)
 
-    answer = safe_input("Select the correct answer(a,b,c,d):", ["a", "b", "c", "d"])
-    return Audience, Telephone, Halving, answer
-
-
 def audience_help(answers, current_line, question, table_line_length, choises, shuffled_line):
+    
     play_sound("./msc/kozonseg.mp3", 0)
     for choise in [answers]:
         if choise == current_line[0]:
@@ -83,22 +84,20 @@ def audience_help(answers, current_line, question, table_line_length, choises, s
                 b_percent = random.randrange(0, (100-d_percent))
                 c_percent = random.randrange(0, (100-d_percent-b_percent))
                 a_percent = 100-(d_percent+b_percent+c_percent)
-            if a_percent+b_percent+c_percent+d_percent != 100:
-                print(" AUDIENCE HELP IS BROKEN!!!")
-                break
+            time.sleep(4)
             os.system('clear')
             for choise_ in [answers]:
                 if choise == current_line[0]:
                     if choise_ == a:
                         fake_a_percent = random.randrange(40, 89)
-                        fake_b_percent = random.randrange(0, (100-fake_a_percent))
-                        fake_c_percent = random.randrange(0, (100-fake_a_percent-fake_b_percent))
+                        fake_b_percent = random.randrange(0, (100 - fake_a_percent))
+                        fake_c_percent = random.randrange(0, (100 - fake_a_percent-fake_b_percent))
                         fake_d_percent = 100-(fake_a_percent + fake_b_percent + fake_c_percent)
                     if choise_ == b:
                         fake_b_percent = random.randrange(40, 89)
-                        fake_a_percent = random.randrange(0, (100-fake_b_percent))
-                        fake_c_percent = random.randrange(0, (100-fake_b_percent-fake_a_percent))
-                        fake_d_percent = 100-(fake_a_percent+fake_b_percent+fake_c_percent)
+                        fake_a_percent = random.randrange(0, (100 - fake_b_percent))
+                        fake_c_percent = random.randrange(0, (100 - fake_b_percent-fake_a_percent))
+                        fake_d_percent = 100 - (fake_a_percent+fake_b_percent + fake_c_percent)
                     if choise_ == c:
                         fake_c_percent = random.randrange(40, 89)
                         fake_b_percent = random.randrange(0, (100-fake_c_percent))
@@ -112,7 +111,7 @@ def audience_help(answers, current_line, question, table_line_length, choises, s
                     if fake_a_percent+fake_b_percent+fake_c_percent+fake_d_percent != 100:
                         print("Sheibe")
                 print("A:"+bg.blue+fake_a_percent*" "+" "+str(fake_a_percent)+"%"+"\n"+bg.rs+"B:"+bg.blue+fake_b_percent*" "+" "+str(fake_b_percent)+"%"+"\n"+bg.rs+"C:"+bg.blue+fake_c_percent*" "+" "+str(fake_c_percent)+"%"+"\n"+bg.rs+"D:"+bg.blue+fake_d_percent*" "+" "+str(fake_d_percent)+"%"+"\n"+bg.rs)
-                time.sleep(1)
+                time.sleep(4)
                 os.system('clear')
                 sys.stdout.write("\033[F")
             elems = [a_percent, b_percent, c_percent, d_percent]
@@ -133,6 +132,7 @@ def audience_help(answers, current_line, question, table_line_length, choises, s
 
 
 def quiz_table(table_line_length, choises, question, shuffled_line):
+
     lengths = []
     choice_length = []
     for i in range(4):
@@ -140,7 +140,7 @@ def quiz_table(table_line_length, choises, question, shuffled_line):
         choice_length.append(len(choises[i].letter)+len(choises[i].answer)+len(choises[i].mark)+len(choises[i].quote))
     spaces_ = table_line_length-(lengths[0]+lengths[1]+4)
     spaces__ = table_line_length-(lengths[2]+lengths[3]+4)
-    answer_line_length=table_line_length-4
+    answer_line_length = table_line_length-4
     print("   "+choises[0].slash+bg.black+answer_line_length*"‾"+bg.rs+choises[0].slash_)
     print("  "+choises[0].slash+bg.black+(table_line_length-2)*" "+bg.rs+choises[0].slash_)
     print(" -◀"+bg.black+choises[0].slash_+bg.black+''.join(question).center((answer_line_length), ' ')+choises[0].slash+bg.rs+"▶-")
@@ -155,6 +155,7 @@ def quiz_table(table_line_length, choises, question, shuffled_line):
 
 
 def print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter, head='vago.txt'):
+   
     vago_feje_sorai = open_drawing(head, 'r')
     Aud = "👥 "
     Tel = bg.black+"📞 "
@@ -194,6 +195,7 @@ def print_quizmaster_with_prices_table(Help_available, table_line_length, prices
 
 
 def help_modules(answers, current_line, question, table_line_length, shuffled_line, choises, Help_available, prices, prices1, prices2, counter):
+    
     help_ = safe_input(": ", ["a","t","h"])
     if help_.lower() == "a":
         if Help_available[0]:
@@ -219,11 +221,11 @@ def help_modules(answers, current_line, question, table_line_length, shuffled_li
             quiz_table(table_line_length, choises, question, shuffled_line)
         else:
             print("You have already used the halving help!")
-    answer = safe_input("Select the correct answer(a,b,c,d):", ["a", "b", "c", "d"])
-    return Help_available, answer
+    return Help_available
 
 
 def give_audience_choises():
+   
     percents = []
     percents.append(random.randrange(40, 89))
     percents.append(random.randrange(0, 100-percents[0]))
@@ -235,6 +237,7 @@ def give_audience_choises():
 
 
 def audience_help(answers, current_line, question, table_line_length, choises, shuffled_line):
+    
     os.system('clear')
     betuk = ["A: ", "B: ", "C: ", "D: "]
     percents_list = give_audience_choises()
@@ -252,6 +255,7 @@ def audience_help(answers, current_line, question, table_line_length, choises, s
 
 
 def print_phone_conversation(text, question, good_answer):
+    
     play_sound("./msc/telhiv.mp3", 0)
     time.sleep(2)
     play_sound("./msc/telefon.mp3", 0)
@@ -284,7 +288,7 @@ def print_phone_conversation(text, question, good_answer):
 
 
 def telephone_help(question, current_line):
-    phone = safe_input("Who'd you like to call?\nfor mum, press 'm'\nfor dad press 'd'\nfor old teacher from high school press 't'\nfor Maester Yoda press 'y': ", ["m","d","t","y"])
+    phone = safe_input("Who'd you like to call?\nfor mum, press 'm'\nfor dad press 'd'\nfor old teacher from high school press 't'\nfor Maester Yoda press 'y': ", ["m", "d", "t", "y"])
     call_list = ['m', 'd', 't', 'y']
     call_files_directory = "./Database/Telephone_conversations/"
     call_text_files = ["mum.txt", "dad.txt", "teacher.txt", "yoda_master.txt"]
@@ -313,52 +317,50 @@ def halving(table_line_length, question, shuffled_line, choises, current_line, a
                 elif shuffled_element == answers[3]:
                     possibilities.append(random.choice([answers[0], answers[1], answers[2]]))
     if answers[0] not in possibilities:
-        choises[0] = '◆ A: ' + " "*len(answers[0])
+        choises[0].answer =" "*(len(choises[0].answer)-1)+"▕"
     if answers[1] not in possibilities:
-        choises[1] = '◆ B: ' + " "*len(answers[1])
+        choises[1].answer = " "*(len(choises[1].answer)-1)+"▕"
     if answers[2] not in possibilities:
-        choises[2] = '◆ C: ' + " "*len(answers[2])
+        choises[2].answer = " "*(len(choises[2].answer)-1)+"▕"
     if answers[3] not in possibilities:
-        choises[3] =  '◆ D: ' + " "*len(answers[3])
+        choises[3].answer = " "*(len(choises[3].answer)-1)+"▕"
 
 
 def marking(Choise, answer, current_line, answers, choises, table_line_length, shuffled_line, question, Help_available, prices, prices1, prices2, counter):
-    letterses = ['a','b','c','d']
+    letterses = ['a', 'b', 'c', 'd']
     abcd = [' A: ', ' B: ', ' C: ', ' D: ']
     for letters_ in range(len(letterses)):
         if answer.lower() == letterses[letters_]:
             answer = answers[letters_]
             choises[letters_] = Choise(abcd[letters_], shuffled_line[letters_], '\x1b[48;2;255;150;50m', '\x1b[39m', '\x1b[49m', '\x1b[30m')
-            '\x1b[48;2;255;150;50m◆\x1b[30m A: \x1b[39m297 meters\x1b[49m'
-            '\x1b[48;2;255;150;50m◆\x1b[30m A: \x1b[39m297 meters\x1b[49m'
-    
+
     return choises, answer
 
 
 def check_answer(answer, Choise, current_line, answers, choises, table_line_length, shuffled_line, question):
     betuk = [' A: ', ' B: ', ' C: ', ' D: ']
     for pos in range(len(answers)):
-        if shuffled_line[pos]==current_line[0]:
+        if shuffled_line[pos] == current_line[0]:
             index = shuffled_line.index(shuffled_line[pos])
     if answer == current_line[0]:
-        choises[index]=Choise(betuk[index],shuffled_line[index],'\x1b[42m','\x1b[39m','\x1b[49m','\x1b[30m')
-        play_sound("./msc/jo valasz.mp3", 0)
+        choises[index] = Choise(betuk[index], shuffled_line[index], '\x1b[42m', '\x1b[39m', '\x1b[49m', '\x1b[30m')
         fg.green = Style(RgbFg(0, 255, 0))
-        print(fg.green + "Well done!" + fg.rs)
         time.sleep(2)
         os.system('clear')
+        play_sound("./msc/jo valasz.mp3", 0)
+        print(fg.green + "Well done!" + fg.rs)
     else:
         play_sound("./msc/rossz valasz.mp3", 0)
         time.sleep(2)
         fg.red = Style(RgbFg(255, 0, 0))
         print(fg.red+answer+"\nBetter luck next time!"+fg.rs)
-        ask=safe_input("Would you like to play again? ('y'/'n')", ['y'])
-        if ask=='y':
+        ask = safe_input("Would you like to play again? ('y'/'n')", ['y'])
+        if ask == 'y':
             game_start()
             quiz()
         else:
             sys.exit(0)
-    
+
     return choises
 
 
@@ -381,7 +383,7 @@ def calculate_quiz_table_size(question_lines, list_of_answers):
     return table_line_length
 
 
-def stop_game_and_guess_out_of_game(answer, Help_available, table_line_length, prices, prices1, prices2, counter,current_line, answers, choises, shuffled_line, question):
+def stop_game_and_guess_out_of_game(answer, Help_available, table_line_length, prices, prices1, prices2, counter, current_line, answers, choises, shuffled_line, question):
     if answer.lower() == "s":
         os.system('clear')
         play_sound("./msc/zene_le.mp3", 0)
@@ -405,7 +407,7 @@ def stop_game_and_guess_out_of_game(answer, Help_available, table_line_length, p
         sys.exit(0)
 
 
-def pressed_h_key(answer,answers, current_line, question, table_line_length, shuffled_line, choises, Help_available, prices, prices1, prices2, counter):
+def pressed_h_key(answer, answers, current_line, question, table_line_length, shuffled_line, choises, Help_available, prices, prices1, prices2, counter):
     if answer.lower() == 'h':
             os.system('clear')
             print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter, head='vago_helping.txt')
@@ -417,7 +419,7 @@ def pressed_h_key(answer,answers, current_line, question, table_line_length, shu
 
 
 def quiz():
-    Help_available = [True,True,True]
+    Help_available = [True, True, True]
     prices = ["5.000 Ft", "10.000 Ft", "25.000 Ft", "50.000 Ft", "100.000 Ft", "200.000 Ft", "300.000 Ft", "500.000 Ft", "800.000 Ft", "1.500.000 Ft", "3.000.000 Ft", "5.000.000 Ft", "10.000.000 Ft", "20.000.000 Ft", "40.000.000 Ft"]
     prices1 = ['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
     prices2 = ['40.000.000 Ft', '20.000.000 Ft', '10.000.000 Ft', '5.000.000 Ft', '3.000.000 Ft', '1.500.000 Ft', '800.000 Ft', '500.000 Ft', '300.000 Ft', '200.000 Ft', '100.000 Ft', '50.000 Ft', '25.000 Ft', '10.000 Ft', '5.000 Ft']
@@ -425,23 +427,24 @@ def quiz():
     list_of_answers = open_file('questions.txt', "r")
     starting_range = 0
     ending_range = 4
+
     class Choise():
-        def __init__(self,letter,answer,firstpart,secondpart,thirdpart,additional):
-            self.additional=additional
+        def __init__(self, letter, answer, firstpart, secondpart, thirdpart, additional):
+            self.additional = additional
             self.mark = "▏"
             self.quote = "◆"
             self.letter = letter
-            self.answer = answer+"     "+"▕"
-            self.firstpart=firstpart
-            self.secondpart=secondpart
-            self.thirdpart=thirdpart
-            self.f_end="◀"
-            self.s_end="▶"
-            self.line="-"
-            self.slash="▕"
-            self.slash_="▏"
+            self.answer = answer + "     " + "▕"
+            self.firstpart = firstpart
+            self.secondpart = secondpart
+            self.thirdpart = thirdpart
+            self.f_end = "◀"
+            self.s_end = "▶"
+            self.line = "-"
+            self.slash = "▕"
+            self.slash_ = "▏"
 
-    letters_=[" A: "," B: "," C: "," D: ",]
+    letters_ = [" A: ", " B: ", " C: ", " D: "]
     for i in range(15):
         counter = i
         random_question = []
@@ -457,13 +460,13 @@ def quiz():
         b = shuffled_line[1]
         c = shuffled_line[2]
         d = shuffled_line[3]
-        choises = [' ',' ',' ',' ']
+        choises = [' ', ' ', ' ', ' ']
         for letter_ in range(len(letters_)):
 
-            choises[letter_]=Choise(letters_[letter_],shuffled_line[letter_],'\x1b[40m','\x1b[39m','\x1b[49m','\x1b[38;2;255;150;50m')
-        answers=[a, b, c, d]
+            choises[letter_] = Choise(letters_[letter_],shuffled_line[letter_],'\x1b[40m','\x1b[39m','\x1b[49m','\x1b[38;2;255;150;50m')
+        answers = [a, b, c, d]
         fg.orange = Style(RgbFg(255, 150, 50))
-        table_line_length=calculate_quiz_table_size(question_lines,list_of_answers)
+        table_line_length = calculate_quiz_table_size(question_lines,list_of_answers)
         print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
         quiz_table(table_line_length, choises, question, shuffled_line)
         answer = safe_input("\nSelect the correct answer (a,b,c,d) or 'h' for help! ", ["a", "b", "c", "d", "h", "s"])
@@ -484,7 +487,7 @@ def quiz():
         choises=check_answer(answer, Choise, current_line, answers, choises, table_line_length, shuffled_line, question)
         print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
         quiz_table(table_line_length, choises, question, shuffled_line)
-        time.sleep(4)
+        time.sleep(2)
         os.system('clear')
         won_prize = prices[i]
         if i == 4:
