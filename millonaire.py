@@ -59,104 +59,132 @@ def choose_random_from_list(list_):
 
     return random.choice(list_)
 
-def audience_help(answers, current_line, question, table_line_length, choises, shuffled_line):
-    
+
+def audience_help(answers, current_line, question, table_line_length, choises, shuffled_line, Help_available):
     play_sound("./msc/kozonseg.mp3", 0)
-    for choise in [answers]:
-        if choise == current_line[0]:
-            if choise == a:
-                a_percent = random.randrange(40, 89)
-                b_percent = random.randrange(0, (100-a_percent))
-                c_percent = random.randrange(0, (100-a_percent-b_percent))
-                d_percent = 100-(a_percent+b_percent+c_percent)
-            if choise == b:
-                b_percent = random.randrange(40, 89)
-                a_percent = random.randrange(0, (100-b_percent))
-                c_percent = random.randrange(0, (100-b_percent-a_percent))
-                d_percent = 100-(a_percent+b_percent+c_percent)
-            if choise == c:
-                c_percent = random.randrange(40, 89)
-                b_percent = random.randrange(0, (100-c_percent))
-                a_percent = random.randrange(0, (100-c_percent-b_percent))
-                d_percent = 100-(a_percent+b_percent+c_percent)
-            if choise == d:
-                d_percent = random.randrange(40, 89)
-                b_percent = random.randrange(0, (100-d_percent))
-                c_percent = random.randrange(0, (100-d_percent-b_percent))
-                a_percent = 100-(d_percent+b_percent+c_percent)
-            time.sleep(4)
+    for i in range(5):
+        print_quizmaster_with_audinence_help(Help_available, table_line_length, shuffled_line,current_line)
+        if i < 4:
+            quiz_table(table_line_length, choises, question, shuffled_line, addition=2)
+            time.sleep(1)
             os.system('clear')
-            for choise_ in [answers]:
-                if choise == current_line[0]:
-                    if choise_ == a:
-                        fake_a_percent = random.randrange(40, 89)
-                        fake_b_percent = random.randrange(0, (100 - fake_a_percent))
-                        fake_c_percent = random.randrange(0, (100 - fake_a_percent-fake_b_percent))
-                        fake_d_percent = 100-(fake_a_percent + fake_b_percent + fake_c_percent)
-                    if choise_ == b:
-                        fake_b_percent = random.randrange(40, 89)
-                        fake_a_percent = random.randrange(0, (100 - fake_b_percent))
-                        fake_c_percent = random.randrange(0, (100 - fake_b_percent-fake_a_percent))
-                        fake_d_percent = 100 - (fake_a_percent+fake_b_percent + fake_c_percent)
-                    if choise_ == c:
-                        fake_c_percent = random.randrange(40, 89)
-                        fake_b_percent = random.randrange(0, (100-fake_c_percent))
-                        fake_a_percent = random.randrange(0, (100-fake_c_percent-fake_b_percent))
-                        fake_d_percent = 100-(fake_a_percent+fake_b_percent+fake_c_percent)
-                    if choise_ == d:
-                        fake_d_percent = random.randrange(40, 89)
-                        fake_b_percent = random.randrange(0, (100-fake_d_percent))
-                        fake_c_percent = random.randrange(0, (100-fake_d_percent-fake_b_percent))
-                        fake_a_percent = 100-(fake_d_percent+fake_b_percent+fake_c_percent)
-                    if fake_a_percent+fake_b_percent+fake_c_percent+fake_d_percent != 100:
-                        print("Sheibe")
-                print("A:"+bg.blue+fake_a_percent*" "+" "+str(fake_a_percent)+"%"+"\n"+bg.rs+"B:"+bg.blue+fake_b_percent*" "+" "+str(fake_b_percent)+"%"+"\n"+bg.rs+"C:"+bg.blue+fake_c_percent*" "+" "+str(fake_c_percent)+"%"+"\n"+bg.rs+"D:"+bg.blue+fake_d_percent*" "+" "+str(fake_d_percent)+"%"+"\n"+bg.rs)
-                time.sleep(4)
-                os.system('clear')
-                sys.stdout.write("\033[F")
-            elems = [a_percent, b_percent, c_percent, d_percent]
-            max_element = max(elems[0], elems[1], elems[2], elems[3])
-            a__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  A: {bg.rs+bg.blue+a_percent*" "+bg.black+fg.rs+str(a_percent)}%')
-            b__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  B: {bg.rs+bg.blue+b_percent*" "+bg.black+fg.rs+str(b_percent)}%')
-            c__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  C: {bg.rs+bg.blue+c_percent*" "+bg.black+fg.rs+str(c_percent)}%')
-            d__ = (f'{(table_line_length+1)*" "+bg.black+"|"+fg.orange}  D: {bg.rs+bg.blue+d_percent*" "+bg.black+fg.rs+str(d_percent)}%')
-            print((table_line_length+1)*" " + bg.black + (max_element+11)*"-" + bg.rs)
-            print(a__+(((max_element)-a_percent)+3)*" "+"|"+bg.rs)
-            time.sleep(1)
-            print(b__+(((max_element)-b_percent)+2)*" "+"|"+bg.rs)
-            time.sleep(1)
-            print(c__+(((max_element)-c_percent)+2)*" "+"|"+bg.rs)
-            time.sleep(1)
-            print(d__+(((max_element)-d_percent)+3)*" "+"|"+bg.rs)
-            print((table_line_length+1)*" "+bg.black+(max_element+11)*"-" + bg.rs)
+    time.sleep(1)
 
 
-def quiz_table(table_line_length, choises, question, shuffled_line):
+def print_quizmaster_with_audinence_help(Help_available, table_line_length,shuffled_line,current_line, head='vago2.txt'):
+
+    betuk = ["A: ", "B: ", "C: ", "D: "]
+    vago_feje_sorai = open_drawing(head, 'r')
+
+
+    price_number=0
+    prices_line=len("40.000.000 Ft    ")*"_"
+    prices_line_sec=len("40.000.000 Ft    ")*"‾"
+    Aud = "👥  "
+    Tel = bg.black+"📞 "
+    Halv = "50:50 "
+    for helps in Help_available:
+        if not helps:
+            if helps == Help_available[0]:
+                Aud = bg.red+"👥 "+bg.rs
+            if helps == Help_available[1]:
+                Tel = bg.red+"📞 "+bg.rs
+            if helps == Help_available[2]:
+                Halv = bg.red+"50:50 "+bg.rs
+    help_line="|"+" "+"50:50 "+"∥"+"📞 "+"∥"+"👥 "+"|"
+    help_length=len(help_line)
+    price_length=len("40.000.000 Ft")
+    print(bg.black+(vago_feje_sorai[0][0]).rstrip().center((table_line_length), ' ')+prices_line)
+    print(bg.black+(vago_feje_sorai[1][0]).rstrip().center((table_line_length), ' ')+bg.black+"▏"+" "+Halv+"∥"+Tel+" ∥"+Aud+bg.black+"▕"+bg.rs)
+    print(bg.black+(vago_feje_sorai[2][0]).rstrip().center((table_line_length), ' ')+prices_line_sec)
+    print(bg.black+(vago_feje_sorai[3][0]).rstrip().center((table_line_length), ' ')+prices_line)
+    audience_number=0
+    w, h = 13, 15
+    audience = [[' ' for x in range(w)] for y in range(h)]
+    #audience[13]="==============="
+    audience[14]=fg.orange+"A ◆ B ◆ C ◆ D"+fg.rs
+    
+    percents=give_audience_choises()
+    rounds=[]
+    var=0
+    good_percents=[' ',' ',' ',' ']
+    
+
+    for i in range(len(shuffled_line)):
+        if shuffled_line[i] == current_line[0]:
+            good_percents[i] = percents[0]
+        if shuffled_line[i] != current_line[0]:
+            if i < 3:
+                good_percents[i] = percents[i+1]
+            else:
+                good_percents[i] = percents[i]
+
+    for percent in range(len(good_percents)):
+        
+        if int(good_percents[percent]) < 10:
+            good_percents[percent]=10
+        rounds.append(good_percents[percent]//10)
+    for percentage in rounds:
+        index=12
+        for f in range(0,percentage):
+            audience[index-f][var]=audience[index-f][var].replace(' ',fg.blue+"X"+fg.rs)
+            
+        
+        var+=4
+                        
+    for length in range(len(good_percents)):
+        if good_percents[length]<10:
+            good_percents[length]=" "+str(length)
+            audience[0]=str(good_percents[0])+"%"+" "+str(good_percents[1])+"%"+" "+str(good_percents[2])+"%"+" "+str(good_percents[3])+"%"
+        else:
+            audience[0]=str(good_percents[0])+"%"+" "+str(good_percents[1])+"%"+" "+str(good_percents[2])+"%"+" "+str(good_percents[3])+"%"
+    
+
+
+    for head_lines in range(4,len(vago_feje_sorai)):
+        if head_lines < (len(vago_feje_sorai)-2):
+            """ price_length=len("40.000.000 Ft") """
+            if head_lines==4:
+                print(bg.black+(vago_feje_sorai[head_lines][0]).rstrip().center((table_line_length), ' ')+"▏"+''.join(audience[audience_number])+"▕")
+            else:
+                print(bg.black+(vago_feje_sorai[head_lines][0]).rstrip().center((table_line_length), ' ')+"▏ "+''.join(audience[audience_number])+" ▕")
+            audience_number+=1
+        else:
+            print(bg.black+(vago_feje_sorai[head_lines][0]).rstrip().center((table_line_length), ' ')+prices_line_sec)
+            print(bg.black+(vago_feje_sorai[head_lines][0]).rstrip().center((table_line_length), ' ')+len(prices_line)*" ")
+            break
+
+def quiz_table(table_line_length, choises, question, shuffled_line, addition=0):
 
     lengths = []
     choice_length = []
+    choise_lengths=[]
     for i in range(4):
-        lengths.append((len(choises[i].letter)+len(choises[i].answer)+len(choises[i].mark)+len(choises[i].f_end)+len(choises[i].s_end)))
-        choice_length.append(len(choises[i].letter)+len(choises[i].answer)+len(choises[i].mark)+len(choises[i].quote))
+        lengths.append((len(choises[i].letter)+len(choises[i].answer)+len(choises[i].mark)+len(choises[i].f_end)+len(choises[i].s_end)+len(choises[i].spaces)))
+        choice_length.append(len(choises[i].letter)+len(choises[i].answer)+len(choises[i].mark)+len(choises[i].quote)+len(choises[i].spaces))
     spaces_ = table_line_length-(lengths[0]+lengths[1]+4)
     spaces__ = table_line_length-(lengths[2]+lengths[3]+4)
     answer_line_length = table_line_length-4
-    print("   "+choises[0].slash+bg.black+answer_line_length*"‾"+bg.rs+choises[0].slash_)
-    print("  "+choises[0].slash+bg.black+(table_line_length-2)*" "+bg.rs+choises[0].slash_)
-    print(" -◀"+bg.black+choises[0].slash_+bg.black+''.join(question).center((answer_line_length), ' ')+choises[0].slash+bg.rs+"▶-")
-    print("  "+choises[0].slash+bg.black+(table_line_length-3)*" "+choises[0].slash+bg.rs)
-    print("   "+choises[0].slash+bg.black+answer_line_length*"_"+bg.rs+choises[0].slash_)
-    print("    "+choice_length[0]*"_"+(spaces_+2)*" "+choice_length[1]*"_")
-    print("  "+choises[0].line+choises[0].f_end+choises[0].firstpart+choises[0].mark+choises[0].additional+choises[0].quote+choises[0].letter+choises[0].secondpart+choises[0].answer+choises[0].thirdpart+choises[0].s_end+spaces_*"-"+choises[1].f_end+choises[1].firstpart+choises[1].mark+choises[1].additional+choises[1].quote+choises[1].letter+choises[1].secondpart+choises[1].answer+choises[1].thirdpart+choises[1].s_end+choises[2].line)
-    print("    "+choice_length[0]*"‾"+(spaces_+2)*" "+choice_length[1]*"‾")
-    print("    "+choice_length[2]*"_"+(spaces__+2)*" "+choice_length[3]*"_")
-    print("  "+choises[2].line+choises[2].f_end+choises[2].firstpart+choises[2].mark+choises[2].additional+choises[2].quote+choises[2].letter+choises[2].secondpart+choises[2].answer+choises[2].thirdpart+choises[2].s_end+spaces__*"-"+choises[3].f_end+choises[3].firstpart+choises[3].mark+choises[3].additional+choises[3].quote+choises[3].letter+choises[3].secondpart+choises[3].answer+choises[3].thirdpart+choises[3].s_end+choises[3].line)
-    print("    "+choice_length[2]*"‾"+(spaces__+2)*" "+choice_length[3]*"‾")
+    
+    print(bg.black+"   "+choises[0].slash+bg.black+answer_line_length*"‾"+bg.black+choises[0].slash_+(14+addition)*" "+bg.rs)
+    print(bg.black+"  "+choises[0].slash+bg.black+(table_line_length-2)*" "+bg.black+choises[0].slash_+(13+addition)*" "+bg.rs)
+    print(bg.black+" -◀"+bg.black+choises[0].slash_+bg.black+''.join(question).center((answer_line_length), ' ')+bg.black+choises[0].slash+"▶-"+(12+addition)*" "+bg.rs)
+    print(bg.black+"  "+choises[0].slash+bg.black+(table_line_length-3)*" "+bg.black+choises[0].slash+" "+(13+addition)*" "+bg.rs)
+    print(bg.black+"   "+choises[0].slash+bg.black+answer_line_length*"_"+bg.black+choises[0].slash_+" "+(13+addition)*" "+bg.rs)
+    print(bg.black+"    "+choice_length[0]*"_"+(spaces_+2)*" "+choice_length[1]*"_"+bg.black+(15+addition)*" "+bg.rs)
+    print(bg.black+"  "+choises[0].line+choises[0].f_end+choises[0].firstpart+choises[0].mark+choises[0].additional+choises[0].quote+choises[0].letter+choises[0].secondpart+choises[0].answer+choises[0].spaces+bg.rs+bg.black+choises[0].s_end+spaces_*"-"+choises[1].f_end+choises[1].firstpart+choises[1].mark+choises[1].additional+choises[1].quote+choises[1].letter+choises[1].secondpart+choises[1].answer+choises[1].spaces+bg.rs+bg.black+choises[1].s_end+choises[2].line+bg.black+(13+addition)*" "+bg.rs)
+    print(bg.black+"    "+choice_length[0]*"‾"+(spaces_+2)*" "+choice_length[1]*"‾"+bg.black+(15+addition)*" "+bg.rs)
+    print(bg.black+"    "+choice_length[2]*"_"+(spaces__+2)*" "+choice_length[3]*"_"+bg.black+(15+addition)*" "+bg.rs)
+    print(bg.black+"  "+choises[2].line+choises[2].f_end+choises[2].firstpart+choises[2].mark+choises[2].additional+choises[2].quote+choises[2].letter+choises[2].secondpart+choises[2].answer+choises[2].spaces+bg.rs+bg.black+choises[2].s_end+spaces__*"-"+choises[3].f_end+choises[3].firstpart+choises[3].mark+choises[3].additional+choises[3].quote+choises[3].letter+choises[3].secondpart+choises[3].answer+choises[3].spaces+bg.rs+bg.black+choises[3].s_end+choises[3].line+bg.black+(13+addition)*" "+bg.rs)
+    print(bg.black+"    "+choice_length[2]*"‾"+(spaces__+2)*" "+choice_length[3]*"‾"+bg.black+(15+addition)*" "+bg.rs)
+    print(bg.rs)
 
-
-def print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter, head='vago.txt'):
-   
+def print_lists(Help_available, table_line_length, head='vago2.txt', file='./Database/prices.txt'):
     vago_feje_sorai = open_drawing(head, 'r')
+    prices_table=open_file(file,'r')
+    price_number=0
+    prices_line=len(prices_table[0])*"_"
+    prices_line_sec=len(prices_table[0])*"‾"
     Aud = "👥 "
     Tel = bg.black+"📞 "
     Halv = "50:50 "
@@ -168,41 +196,30 @@ def print_quizmaster_with_prices_table(Help_available, table_line_length, prices
                 Tel = bg.red+"📞 "+bg.rs
             if helps == Help_available[2]:
                 Halv = bg.red+"50:50 "+bg.rs
-    n = 0
-    print((80*" ")+bg.black+(len(prices[-1])+2)*"-".rstrip() + bg.rs)
-    print((80*" ")+bg.black+"|"+" "+Halv+"∥"+Tel+"∥"+Aud+(len(prices[-1])-(len(Halv)+len(Tel)+len(Aud)+4))*" "+bg.black+"|"+bg.rs)
-    print((80*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
-    print((80*" ")+bg.black+(len(prices[-1])+2)*"-"+bg.rs)
-    for head_lines in range(15):
-        bg.orange = bg(255, 150, 50)
-        spaces_ = (len(prices1[0])-len(prices1[head_lines]))*" "
-        if prices2[head_lines] == prices2[0]:
-            prices2[0] = bg.black+fg.white+prices1[0]
-        if counter == 14:
-            prices2[0] = bg.orange+fg.black+prices1[0]
-        if prices2[head_lines] == prices2[counter]:
-            prices2[14-counter] = bg.orange+fg.black+prices1[14-counter]
-            if counter >= 1:
-                prices2[14-counter+1] = bg.black+fg.orange+prices1[14-counter+1]
-            for n in range(counter+1, 15):
-                if n in [5, 10, 14]:
-                    prices2[n] = bg.black+fg.white+prices2[n]
-                prices2[n] = bg.black+fg.orange+prices2[n]                
-        print(''.join(vago_feje_sorai[head_lines]).strip('\n')+bg.black+"|"+fg.rs+bg.rs+prices2[head_lines]+spaces_+fg.white+bg.black+"|"+bg.rs+fg.rs)
-    print(''.join(vago_feje_sorai[15]).rstrip()+31*" "+bg.black+(len(prices[:-1])+1)*"-"+bg.rs)
-    for art in range(16, 20):
-        print(''.join(vago_feje_sorai[art]).rstrip())
-
-
+    help_line="|"+" "+"50:50 "+"∥"+"📞 "+"∥"+"👥 "+"|"
+    help_length=len(help_line)
+    print(bg.black+(vago_feje_sorai[0][0]).rstrip().center((table_line_length), ' ')+prices_line)
+    print(bg.black+(vago_feje_sorai[1][0]).rstrip().center((table_line_length), ' ')+bg.black+"▏"+" "+Halv+"∥"+Tel+"∥"+Aud+bg.black+"▕"+bg.rs)
+    print(bg.black+(vago_feje_sorai[2][0]).rstrip().center((table_line_length), ' ')+prices_line_sec)
+    print(bg.black+(vago_feje_sorai[3][0]).rstrip().center((table_line_length), ' ')+prices_line)
+    for head_lines in range(4,len(vago_feje_sorai)):
+        if head_lines < (len(vago_feje_sorai)-2):
+            price_length=len(prices_table[0][price_number])
+            print(bg.black+(vago_feje_sorai[head_lines][0]).rstrip().center((table_line_length), ' ')+"▏"+prices_table[0][price_number]+(help_length-price_length-2)*" "+"▕")
+            price_number+=1
+        else:
+            print(bg.black+(vago_feje_sorai[head_lines][0]).rstrip().center((table_line_length), ' ')+prices_line_sec)
+            print(bg.black+(vago_feje_sorai[head_lines][0]).rstrip().center((table_line_length), ' ')+len(prices_line)*" ")
+            break
 def help_modules(answers, current_line, question, table_line_length, shuffled_line, choises, Help_available, prices, prices1, prices2, counter):
     
     help_ = safe_input(": ", ["a","t","h"])
     if help_.lower() == "a":
         if Help_available[0]:
-            audience_help(answers, current_line, question, table_line_length, choises, shuffled_line)
+            os.system('clear')
+            audience_help(answers, current_line, question, table_line_length, choises, shuffled_line, Help_available)
             Help_available[0] = False
-            print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
-            quiz_table(table_line_length, choises, question, shuffled_line)
+            quiz_table(table_line_length, choises, question, shuffled_line, addition=2)
         else:
             print("You have already used the audience's help!")
 
@@ -217,7 +234,7 @@ def help_modules(answers, current_line, question, table_line_length, shuffled_li
         if Help_available[2]:
             halving(table_line_length, question, shuffled_line, choises, current_line, answers)
             Help_available[2] = False
-            print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter, 'vago_helping.txt')
+            print_lists(Help_available, table_line_length, 'vago_helping.txt')
             quiz_table(table_line_length, choises, question, shuffled_line)
         else:
             print("You have already used the halving help!")
@@ -234,24 +251,6 @@ def give_audience_choises():
     if percents[0]+percents[1]+percents[2]+percents[3] != 100:
         print(" AUDIENCE HELP IS BROKEN!!!")
     return percents
-
-
-def audience_help(answers, current_line, question, table_line_length, choises, shuffled_line):
-    
-    os.system('clear')
-    betuk = ["A: ", "B: ", "C: ", "D: "]
-    percents_list = give_audience_choises()
-    for i in range(len(shuffled_line)):
-        if shuffled_line[i] == current_line[0]:
-            first_ = bg.black+betuk[i]+str(percents_list[0])+"%"+bg.rs
-            del betuk[i]
-    second_ = bg.black+betuk[0]+str(percents_list[1])+"%"+bg.rs
-    third_ = bg.black+betuk[1]+str(percents_list[2])+"%"+bg.rs
-    fourth_ = bg.black+betuk[2]+str(percents_list[3])+"%"+bg.rs
-    for s in ["A", "B", "C", "D"]:
-        for i in [first_, second_, third_, fourth_]:
-            if s in i:
-                print(i)
 
 
 def print_phone_conversation(text, question, good_answer):
@@ -326,24 +325,32 @@ def halving(table_line_length, question, shuffled_line, choises, current_line, a
         choises[3].answer = " "*(len(choises[3].answer)-1)+"▕"
 
 
-def marking(Choise, answer, current_line, answers, choises, table_line_length, shuffled_line, question, Help_available, prices, prices1, prices2, counter):
+def marking(Choise, answer, current_line, answers, choises, table_line_length, shuffled_line, question, Help_available):
     letterses = ['a', 'b', 'c', 'd']
     abcd = [' A: ', ' B: ', ' C: ', ' D: ']
+    choise_lengths=[]
+    for n in range(4):
+            choise_lengths.append(len(shuffled_line[n]))
+    choise_lengths=max(choise_lengths)
     for letters_ in range(len(letterses)):
         if answer.lower() == letterses[letters_]:
             answer = answers[letters_]
-            choises[letters_] = Choise(abcd[letters_], shuffled_line[letters_], '\x1b[48;2;255;150;50m', '\x1b[39m', '\x1b[49m', '\x1b[30m')
+            choises[letters_] = Choise(abcd[letters_], shuffled_line[letters_], '\x1b[48;2;255;150;50m', '\x1b[39m', '\x1b[49m', '\x1b[30m',choise_lengths)
 
     return choises, answer
 
 
 def check_answer(answer, Choise, current_line, answers, choises, table_line_length, shuffled_line, question):
     betuk = [' A: ', ' B: ', ' C: ', ' D: ']
+    choise_lengths=[]
+    for n in range(4):
+            choise_lengths.append(len(shuffled_line[n]))
+    choise_lengths=max(choise_lengths)
     for pos in range(len(answers)):
         if shuffled_line[pos] == current_line[0]:
             index = shuffled_line.index(shuffled_line[pos])
     if answer == current_line[0]:
-        choises[index] = Choise(betuk[index], shuffled_line[index], '\x1b[42m', '\x1b[39m', '\x1b[49m', '\x1b[30m')
+        choises[index] = Choise(betuk[index], shuffled_line[index], '\x1b[42m', '\x1b[39m', '\x1b[49m', '\x1b[30m',choise_lengths)
         fg.green = Style(RgbFg(0, 255, 0))
         time.sleep(2)
         os.system('clear')
@@ -387,12 +394,12 @@ def stop_game_and_guess_out_of_game(answer, Help_available, table_line_length, p
     if answer.lower() == "s":
         os.system('clear')
         play_sound("./msc/zene_le.mp3", 0)
-        print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
+        print_lists(Help_available, table_line_length)
         quiz_table(table_line_length, choises, question, shuffled_line)
         answer = safe_input("\nSelect the correct answer (a,b,c,d)! ", ["a", "b", "c", "d"])
-        marking(Choise,answer, current_line, answers, choises, table_line_length, shuffled_line, question, Help_available, prices, prices1, prices2, counter)
+        marking(Choise, answer, current_line, answers, choises, table_line_length, shuffled_line, question, Help_available)
         os.system('clear')
-        print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
+        print_lists(Help_available, table_line_length)
         print("  "+bg.black+"/"+"‾"*(table_line_length-6)+"\\"+bg.rs)
         width = table_line_length
         if counter == 0:
@@ -410,7 +417,7 @@ def stop_game_and_guess_out_of_game(answer, Help_available, table_line_length, p
 def pressed_h_key(answer, answers, current_line, question, table_line_length, shuffled_line, choises, Help_available, prices, prices1, prices2, counter):
     if answer.lower() == 'h':
             os.system('clear')
-            print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter, head='vago_helping.txt')
+            print_lists(Help_available, table_line_length, head='vago_helping.txt')
             quiz_table(table_line_length, choises, question, shuffled_line)
             Help_available = help_modules(answers, current_line, question, table_line_length, shuffled_line, choises, Help_available, prices, prices1, prices2, counter)
             Audience = Help_available[0]
@@ -427,14 +434,17 @@ def quiz():
     list_of_answers = open_file('questions.txt', "r")
     starting_range = 0
     ending_range = 4
-
+    max_choise=[]
+    
     class Choise():
-        def __init__(self, letter, answer, firstpart, secondpart, thirdpart, additional):
+        def __init__(self, letter, answer, firstpart, secondpart, thirdpart, additional, lengths=''):
+            self.lengths=lengths
             self.additional = additional
             self.mark = "▏"
             self.quote = "◆"
             self.letter = letter
-            self.answer = answer + "     " + "▕"
+            self.answer = answer 
+            self.spaces = (self.lengths-(len(self.answer)))*" " +5*" "+"▕"
             self.firstpart = firstpart
             self.secondpart = secondpart
             self.thirdpart = thirdpart
@@ -460,14 +470,17 @@ def quiz():
         b = shuffled_line[1]
         c = shuffled_line[2]
         d = shuffled_line[3]
-        choises = [' ', ' ', ' ', ' ']
-        for letter_ in range(len(letters_)):
-
-            choises[letter_] = Choise(letters_[letter_],shuffled_line[letter_],'\x1b[40m','\x1b[39m','\x1b[49m','\x1b[38;2;255;150;50m')
+        choise_lengths=[]
         answers = [a, b, c, d]
+        choises = [' ', ' ', ' ', ' ']
+        for n in range(4):
+            choise_lengths.append(len(shuffled_line[n]))
+        choise_lengths=max(choise_lengths)
+        for letter_ in range(len(letters_)):
+            choises[letter_] = Choise(letters_[letter_],shuffled_line[letter_],'\x1b[40m','\x1b[39m','\x1b[49m','\x1b[38;2;255;150;50m',choise_lengths)
         fg.orange = Style(RgbFg(255, 150, 50))
         table_line_length = calculate_quiz_table_size(question_lines,list_of_answers)
-        print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
+        print_lists(Help_available, table_line_length)
         quiz_table(table_line_length, choises, question, shuffled_line)
         answer = safe_input("\nSelect the correct answer (a,b,c,d) or 'h' for help! ", ["a", "b", "c", "d", "h", "s"])
         pressed_h_key(answer,answers, current_line, question, table_line_length, shuffled_line, choises, Help_available, prices, prices1, prices2, counter)
@@ -477,15 +490,15 @@ def quiz():
         time.sleep(1)
         answer = safe_input("Are you sure? ", ["a", "b", "c", "d", "s"])
         stop_game_and_guess_out_of_game(answer, Help_available, table_line_length, prices, prices1, prices2, counter,current_line, answers, choises, shuffled_line, question)
-        answer=marking(Choise,answer, current_line, answers, choises, table_line_length, shuffled_line, question, Help_available, prices, prices1, prices2, counter)[1]
+        answer=marking(Choise, answer, current_line, answers, choises, table_line_length, shuffled_line, question, Help_available)[1]
         os.system('clear')
-        print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
+        print_lists(Help_available, table_line_length)
         quiz_table(table_line_length, choises, question, shuffled_line)
         play_sound("./msc/marked.mp3", 0)
         time.sleep(4)
         #check_answer(answer, Choise, current_line, answers, choises, table_line_length, shuffled_line, question)
         choises=check_answer(answer, Choise, current_line, answers, choises, table_line_length, shuffled_line, question)
-        print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
+        print_lists(Help_available, table_line_length)
         quiz_table(table_line_length, choises, question, shuffled_line)
         time.sleep(2)
         os.system('clear')
@@ -501,19 +514,22 @@ def quiz():
             print(won_prize)
             time.sleep(3)
             sys.exit(0)
-        print_quizmaster_with_prices_table(Help_available, table_line_length, prices, prices1, prices2, counter)
-        print("  "+bg.black+"/"+"‾"*(table_line_length-6)+"\\"+bg.rs)
+        price_len=len("▏40.000.000 Ft▕")-4
+        print_lists(Help_available, table_line_length)
+        print("  "+bg.black+"/"+"‾"*(table_line_length)+"\\"+price_len*" "+bg.rs)
         width = table_line_length
-        len_table = len("‾"*(table_line_length-6-len(won_prize)))
-        print("-" + bg.black+"‹" + fg.orange + ''.join(won_prize).center((width-4), ' ') + fg.rs + "›" + bg.rs + "-")
-        print("  "+bg.black+"\\"+"_"*(table_line_length-6)+"/"+bg.rs)
+        len_table = len("‾"*(table_line_length-len(won_prize)))
+        print(bg.black+"-"+"‹" + fg.orange + ''.join(won_prize).center((width), ' ') + fg.rs +"  "+ "›" + "-"+(price_len-2)*" "+bg.rs)
+        print(bg.black+"  "+"\\"+"_"*(table_line_length)+"/"+price_len*" "+bg.rs)
+        for line in range(6):
+            print(bg.black+108*" "+bg.rs)
         starting_range = ending_range + 1
         ending_range = starting_range + 4
         time.sleep(1)
 
 
 def main():
-    #game_start()
+    game_start()
     quiz()
 
 
